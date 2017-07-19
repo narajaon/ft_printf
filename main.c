@@ -38,9 +38,37 @@ void	get_precis(char **str, t_env *e)
 		*str += 1;
 }
 
-void	get_conv(char *str, t_env *e)
+void	get_conv(char **str, char *conv)
 {
-	e->flags.conv = is_conv(str);
+	*conv = (!*conv) ? is_conv(*str) : *conv;
+	*str += 1;
+}
+
+void	get_values(char **ptr, t_env *e)
+{
+	get_opt(ptr, e);
+	ft_isalpha(**ptr) ? get_size(ptr, e) : 0;
+	ft_isdigit(**ptr) ? get_width(ptr, e) : 0;
+	get_conv(ptr, &e->flags.conv);
+}
+
+void	print_str(char **str, t_env *e)
+{
+	int		i;
+
+	i = 0;
+	while (**str)
+	{
+		if (**str == '%')
+		{
+			*str += 1;
+			get_values(str, e);
+		}
+		if (!**str)
+			break ;
+		e->output[i++] = **str;
+		*str += 1;
+	}
 }
 
 int		main(int ac, char **av)
@@ -52,16 +80,14 @@ int		main(int ac, char **av)
 		return (0);
 	ptr = av[1];
 	ft_bzero(&e, sizeof(e));
-	get_opt(&ptr, &e);
-	ft_isalpha(*ptr) ? get_size(&ptr, &e) : 0;
-	ft_isdigit(*ptr) ? get_width(&ptr, &e) : 0;
-	get_conv(ptr, &e);
+	print_str(&ptr, &e);
 #ifdef DEBUG
-	printf("width %d\n", e.flags.width);
-	printf("conv %c\n", e.flags.conv);
+	printf("width |%d|\n", e.flags.width);
+	printf("conv |%c|\n", e.flags.conv);
 	printf("min |%c| hash |%c| sign |%c| decal |%c|\n",
 		e.flags.opt.min, e.flags.opt.hash,
 		e.flags.opt.sign, e.flags.opt.decal);
+	printf("out |%s|\n", e.output);
 #endif
 	return (0);
 }

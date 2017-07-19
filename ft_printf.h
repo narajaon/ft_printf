@@ -42,6 +42,7 @@ typedef struct		s_env
 {
 	t_cast			cast;
 	t_flags			flags;
+	char			output[5000];
 }					t_env;
 
 

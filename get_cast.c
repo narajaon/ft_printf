@@ -3,7 +3,7 @@
 void	fill_cast(char *tmp, t_env *e)
 {
 	//get the appropriate cast / string
-	printf("cast %s\n", tmp);
+	printf("cast |%s|\n", tmp);
 }
 
 void	get_size(char **str, t_env *e)

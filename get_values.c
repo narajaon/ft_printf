@@ -25,10 +25,6 @@ void	get_values(char **ptr, t_env *e)
 	get_conv(ptr, &e->flags.conv);
 }
 
-void	print_values(t_env *e)
-{
-}
-
 void	print_output(char *conv, int *i)
 {
 	ft_putstr(conv);
@@ -51,7 +47,6 @@ void	print_str(char **str, t_env *e)
 		{
 			print_output(ptr, &i);
 			get_values(str, e);
-			print_values(e);
 		}
 		if (!**str)
 			break ;

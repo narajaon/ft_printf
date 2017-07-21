@@ -1,6 +1,5 @@
 #ifndef FT_PRINTF
 #define FT_PRINTF
-
 #define DEBUG
 #define BUFF_SIZE 5000
 
@@ -8,6 +7,10 @@
 #include <stdio.h>
 #include <inttypes.h>
 #include <stdarg.h>
+
+
+#define STR(x) printf(#x " = %s\n", x)
+#define NBR(x) printf(#x " = %d\n", x)
 
 typedef union		u_cast
 {
@@ -43,10 +46,11 @@ typedef struct		s_env
 {
 	t_cast			cast;
 	t_flags			flags;
+	va_list			arg;
 	void*			conv[128];
 	char			output[BUFF_SIZE];
 	int				output_size;
-	va_list			arg;
+	int				cast_size;
 }					t_env;
 
 char	is_conv(char c);
@@ -57,12 +61,13 @@ void	get_size(char **str, t_env *e);
 void	get_opt(char **str, t_env *e);
 void	get_conv(char **str, char *conv);
 void	get_values(char **ptr, t_env *e);
+int		get_value_size(long long int value);
 
 void	print_str(char **str, t_env *e);
 
 void	d_conv(t_env *e);
 void	capd_conv(t_env *e);
-void	s_conv(t_env *e);
+void	s_conv(t_env *e, int *pos);
 void	caps_conv(t_env *e);
 void	p_conv(t_env *e);
 void	i_conv(t_env *e);

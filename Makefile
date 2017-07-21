@@ -3,7 +3,7 @@ HEAD = ft_printf.h
 LIB = libft.a
 LIBDIR = libft
 SRC = *.c
-FLAG =
+FLAG = -g
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)

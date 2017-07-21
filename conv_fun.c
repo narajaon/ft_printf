@@ -2,6 +2,9 @@
 
 void	d_conv(t_env *e)
 {
+	e->cast_size = get_value_size(abs(e->cast.d)) +
+		((e->cast.d < 0) ? 1 : 0);
+	e->output_size += e->cast_size;
 	ft_putnbr(e->cast.d);
 }
 
@@ -9,8 +12,16 @@ void	capd_conv(t_env *e)
 {
 }
 
-void	s_conv(t_env *e)
+void	s_conv(t_env *e, int *pos)
 {
+	char	*arg;
+
+	arg = va_arg(e->arg, char *);
+//	ft_strcpy(ptr, arg);
+//	*pos += ft_strlen(arg);
+	printf("arg %s\n",
+		va_arg(e->arg, char *));
+	e->flags.conv = 0;
 }
 
 void	caps_conv(t_env *e)

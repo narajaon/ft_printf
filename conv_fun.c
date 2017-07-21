@@ -1,53 +1,54 @@
 #include "ft_printf.h"
 
-void	d_conv(t_env *e, char c)
+void	d_conv(t_env *e)
+{
+	ft_putnbr(e->cast.d);
+}
+
+void	capd_conv(t_env *e)
 {
 }
 
-void	capd_conv(t_env *e, char c)
+void	s_conv(t_env *e)
 {
 }
 
-void	s_conv(t_env *e, char c)
+void	caps_conv(t_env *e)
 {
 }
 
-void	caps_conv(t_env *e, char c)
+void	p_conv(t_env *e)
 {
 }
 
-void	p_conv(t_env *e, char c)
+void	o_conv(t_env *e)
 {
 }
 
-void	o_conv(t_env *e, char c)
+void	capo_conv(t_env *e)
 {
 }
 
-void	capo_conv(t_env *e, char c)
+void	u_conv(t_env *e)
 {
 }
 
-void	u_conv(t_env *e, char c)
+void	capu_conv(t_env *e)
+{
+}
+void	x_conv(t_env *e)
 {
 }
 
-void	capu_conv(t_env *e, char c)
-{
-}
-void	x_conv(t_env *e, char c)
+void	capx_conv(t_env *e)
 {
 }
 
-void	capx_conv(t_env *e, char c)
+void	c_conv(t_env *e)
 {
 }
 
-void	c_conv(t_env *e, char c)
-{
-}
-
-void	capc_conv(t_env *e, char c)
+void	capc_conv(t_env *e)
 {
 }
 

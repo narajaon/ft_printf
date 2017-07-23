@@ -1,7 +1,7 @@
 #ifndef FT_PRINTF
 #define FT_PRINTF
-#define DEBUG
-#define BUFF_SIZE 5000
+#define XDEBUG
+#define BUFF_SIZE 4000
 
 #include "libft/libft.h"
 #include <stdio.h>
@@ -82,6 +82,10 @@ void	x_conv(t_env *e);
 void	capx_conv(t_env *e);
 void	c_conv(t_env *e);
 void	capc_conv(t_env *e);
+
+
+void	minus_opt(t_env *e, int *pos, int size);
+void	apply_sopt(t_env *e, int *pos, int cast_size);
 
 void	fill_funtab(t_env *e);
 

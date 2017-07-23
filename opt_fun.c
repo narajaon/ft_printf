@@ -1,18 +1,42 @@
 #include "ft_printf.h"
 
-void	minus_opt(char *str, t_env *e, int *pos)
+void	minus_opt(t_env *e, int *pos, int size)
 {
 	int		i;
 
-	i = 0;
-	while (*str)
+	i = e->flags.width - size;
+	while (i-- > 0 )
 	{
-		e->output[*pos++] = *str++;
-		e->flags.width--;
-		i++;
+		e->output[*pos] = ' ';
+		*pos += 1;
 	}
-	while (i++ < e->flags.width)
-		e->output[*pos++] = ' ';
+}
+
+void	width_opt(t_env *e, int *pos, int cast_size)
+{
+	int		i;
+	int		posi;
+	char	tmp[e->flags.width];
+
+	i = e->flags.width - cast_size;
+	posi = 0;
+	if (i > 0)
+	{
+		while (posi < i )
+			tmp[posi++] = ' ';
+		ft_bzero(&tmp[posi], e->flags.width - posi);
+		ft_putstr_ret(tmp, pos);
+		*pos = cast_size;
+		e->output_size += i;
+	}
+}
+
+void	apply_sopt(t_env *e, int *pos, int cast_size)
+{
+	if (e->flags.opt.min && e->flags.width)
+		minus_opt(e, pos, cast_size);
+	else if (!e->flags.opt.min && e->flags.width)
+		width_opt(e, pos, cast_size);
 }
 
 void	sign_opt(t_env *e, int *pos)

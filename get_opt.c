@@ -14,7 +14,6 @@ char	is_conv(char str)
 void	get_conv(char **str, char *conv)
 {
 	*conv = is_conv(**str);
-//	printf("conv test |%c| str |%c|\n", *conv, **str);
 	*str += (is_conv(**str)) ? 1 : 0;
 }
 

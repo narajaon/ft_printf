@@ -3,7 +3,7 @@ HEAD = ft_printf.h
 LIB = libft.a
 LIBDIR = libft
 SRC = *.c
-FLAG = -g
+FLAG = -g -fsanitize=address
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)

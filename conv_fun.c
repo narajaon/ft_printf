@@ -2,7 +2,8 @@
 
 void	d_conv(t_env *e)
 {
-	ft_putnbr_ret(e->cast.d, &e->output_size);
+	ft_putnbr_ret(e->cast.d, &e->cast_size);
+	e->output_size += e->cast_size;
 }
 
 void	capd_conv(t_env *e)
@@ -15,17 +16,18 @@ void	s_conv(t_env *e, int *pos)
 	int		out_len;
 
 	arg = va_arg(e->arg, char *);
-	out_len = ft_strlen(arg);
-	if (out_len >= BUFF_SIZE)
+	e->cast_size = ft_strlen(arg);
+	if (e->cast_size >= BUFF_SIZE)
 	{
 		ft_putstr(arg);
-		print_output((void *)0, &out_len, e);
+		print_output((void *)0, &e->cast_size, e);
 	}
 	else
 	{
 		ft_strcpy(e->output, arg);
-		*pos += out_len;
+		*pos += e->cast_size;
 	}
+	apply_sopt(e, pos, e->cast_size);
 }
 
 void	caps_conv(t_env *e)
@@ -61,10 +63,8 @@ void	capx_conv(t_env *e)
 
 void	c_conv(t_env *e)
 {
-	int		c;
-
-	c = va_arg(e->arg, int);
-	ft_putchar_ret(c, &e->output_size);
+	e->cast.d = va_arg(e->arg, int);
+	ft_putchar_ret(e->cast.d, &e->output_size);
 }
 
 void	capc_conv(t_env *e)

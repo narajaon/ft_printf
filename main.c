@@ -9,7 +9,7 @@ int		ft_printf(char *str,...)
 	fill_funtab(&e);
 	print_str(&str, &e);
 	va_end(e.arg);
-#ifdef DEBUG
+#ifndef DEBUG
 	printf("\nwidth |%d|\n", e.flags.width);
 	printf("conv |%c|\n", e.flags.conv);
 	printf("min |%c| hash |%c| sign |%c|\
@@ -25,15 +25,19 @@ int		ft_printf(char *str,...)
 int		main(int ac, char **av)
 {
 	int		nb;
+	int		ret;
 	char	c;
 
 	nb = 0;
 	c = 'a';
 	if (ac < 2)
 		return (0);
-	ft_printf(av[1], c);
-//	ft_printf(av[1], ft_atoi(av[2]));
-//	printf("\nvs\n");
-//	printf(av[1], c);
+//	ft_printf(av[1], c);
+//	ft_printf(av[1], (long long int)ft_atoi(av[2]));
+	//ft_printf(av[1], av[2]);
+	ft_printf(av[1], av[2]);
+	printf("\nvs\n");
+	ret = printf(av[1], av[2]);
+	printf("\nreal out %d\n", ret);
 	return (0);
 }

@@ -14,6 +14,7 @@ NAME = libft.a
 
 SRC = \
 	  ft_atoi_base.c \
+	  ft_itoa_base.c \
 	  ft_abs.c \
 	  ft_putchar.c \
 	  ft_putstr.c \

@@ -13,7 +13,6 @@ void	capd_conv(t_env *e)
 void	s_conv(t_env *e, int *pos)
 {
 	char	*arg;
-	int		out_len;
 
 	arg = va_arg(e->arg, char *);
 	e->cast_size = ft_strlen(arg);
@@ -38,8 +37,13 @@ void	p_conv(t_env *e)
 {
 }
 
-void	o_conv(t_env *e)
+void	o_conv(t_env *e, int *pos)
 {
+	char	*str;
+
+	str = &e->output[0];
+	e->cast_size = ft_itoa_base(e->cast.d, str, 8);
+	*pos = e->cast_size;
 }
 
 void	capo_conv(t_env *e)

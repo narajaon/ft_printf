@@ -9,13 +9,13 @@ void	print_output(char *conv, int *i,
 	*i = 0;
 }
 
-void	print_param(t_env *e)
+void	print_param(t_env *e, int *pos)
 {
-	void	(*conv)(t_env *);
+	void	(*conv)(t_env *, int *);
 
 	conv = e->conv[e->flags.conv];
 	e->cast.ll = va_arg(e->arg, long long int);
-	conv(e);
+	conv(e, pos);
 }
 
 void	get_param(t_env *e, int *pos)
@@ -23,7 +23,7 @@ void	get_param(t_env *e, int *pos)
 	if (e->flags.conv == 's')
 		s_conv(e, pos);
 	else
-		print_param(e);
+		print_param(e, pos);
 }
 
 void	format_value(char *output, char **str,

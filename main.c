@@ -16,7 +16,6 @@ int		ft_printf(char *str,...)
 	decal |%c|\n",
 		e.flags.opt.min, e.flags.opt.hash,
 		e.flags.opt.sign, e.flags.opt.decal);
-	STR(e.output);
 	printf("output_size |%d|\n", e.output_size);
 #endif
 	return (e.output_size);
@@ -35,9 +34,9 @@ int		main(int ac, char **av)
 //	ft_printf(av[1], c);
 //	ft_printf(av[1], (long long int)ft_atoi(av[2]));
 	//ft_printf(av[1], av[2]);
-	ft_printf(av[1], av[2]);
+	ft_printf(av[1], ft_atoi(av[2]));
 	printf("\nvs\n");
-	ret = printf(av[1], av[2]);
+	ret = printf(av[1], ft_atoi(av[2]));
 	printf("\nreal out %d\n", ret);
 	return (0);
 }

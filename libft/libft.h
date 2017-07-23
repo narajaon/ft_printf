@@ -99,4 +99,5 @@ int				ft_atoi_base(const char *str, int str_base);
 void			ft_putchar_ret(char str, int *ret);
 void			ft_putstr_ret(char *str, int *ret);
 void			ft_putnbr_ret(int nbr, int *ret);
+int				ft_itoa_base(int num, char *buff, int base);
 #endif

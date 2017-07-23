@@ -74,7 +74,7 @@ void	s_conv(t_env *e, int *pos);
 void	caps_conv(t_env *e);
 void	p_conv(t_env *e);
 void	i_conv(t_env *e);
-void	o_conv(t_env *e);
+void	o_conv(t_env *e, int *pos);
 void	capo_conv(t_env *e);
 void	u_conv(t_env *e);
 void	capu_conv(t_env *e);

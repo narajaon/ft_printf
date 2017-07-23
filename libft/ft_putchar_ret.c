@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: narajaon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/13 14:01:35 by narajaon          #+#    #+#             */
-/*   Updated: 2017/04/13 14:03:31 by narajaon         ###   ########.fr       */
+/*   Created: 2017/04/13 14:00:10 by narajaon          #+#    #+#             */
+/*   Updated: 2017/04/13 14:00:55 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr(char *str)
+void	ft_putchar_ret(char c, int *ret)
 {
-	write(1, str, ft_strlen(str));
+	*ret += write(1, &c, 1);
 }

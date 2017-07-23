@@ -95,4 +95,8 @@ void			ft_print_words_tables(char **tab);
 long			ft_abs(long nb);
 int				get_next_line(int fd, char **line);
 int				ft_atoi_base(const char *str, int str_base);
+
+void			ft_putchar_ret(char str, int *ret);
+void			ft_putstr_ret(char *str, int *ret);
+void			ft_putnbr_ret(int nbr, int *ret);
 #endif

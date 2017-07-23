@@ -83,6 +83,9 @@ SRC = \
 	  ft_iseven.c \
 	  ft_print_words_tables.c \
 	  get_next_line.c \
+	  ft_putchar_ret.c \
+	  ft_putstr_ret.c \
+	  ft_putnbr_ret.c
 
 CC = -Wall -Werror -Wextra
 

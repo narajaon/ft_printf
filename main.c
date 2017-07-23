@@ -9,7 +9,7 @@ int		ft_printf(char *str,...)
 	fill_funtab(&e);
 	print_str(&str, &e);
 	va_end(e.arg);
-#ifndef DEBUG
+#ifdef DEBUG
 	printf("\nwidth |%d|\n", e.flags.width);
 	printf("conv |%c|\n", e.flags.conv);
 	printf("min |%c| hash |%c| sign |%c|\

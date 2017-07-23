@@ -15,13 +15,20 @@ void	capd_conv(t_env *e)
 void	s_conv(t_env *e, int *pos)
 {
 	char	*arg;
+	int		out_len;
 
 	arg = va_arg(e->arg, char *);
-//	ft_strcpy(ptr, arg);
-//	*pos += ft_strlen(arg);
-	printf("arg %s\n",
-		va_arg(e->arg, char *));
-	e->flags.conv = 0;
+	out_len = ft_strlen(arg);
+	if (out_len >= BUFF_SIZE)
+	{
+		ft_putstr(arg);
+		print_output((void *)0, &out_len, e);
+	}
+	else
+	{
+		ft_strcpy(e->output, arg);
+		*pos += out_len;
+	}
 }
 
 void	caps_conv(t_env *e)

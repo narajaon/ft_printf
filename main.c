@@ -16,25 +16,24 @@ int		ft_printf(char *str,...)
 	decal |%c|\n",
 		e.flags.opt.min, e.flags.opt.hash,
 		e.flags.opt.sign, e.flags.opt.decal);
+	STR(e.output);
 	printf("output_size |%d|\n", e.output_size);
 #endif
 	return (e.output_size);
 }
 
-int		get_value_size(long long int value)
-{
-	if (value < 10)
-		return (1);
-	return (get_value_size(value / 10) + 1);
-}
-
 int		main(int ac, char **av)
 {
 	int		nb;
+	char	c;
 
 	nb = 0;
+	c = 'a';
 	if (ac < 2)
 		return (0);
-	ft_printf(av[1], av[2]);
+	ft_printf(av[1], c);
+//	ft_printf(av[1], ft_atoi(av[2]));
+//	printf("\nvs\n");
+//	printf(av[1], c);
 	return (0);
 }

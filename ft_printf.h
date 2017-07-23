@@ -1,7 +1,7 @@
 #ifndef FT_PRINTF
 #define FT_PRINTF
 #define DEBUG
-#define BUFF_SIZE 10
+#define BUFF_SIZE 5000
 
 #include "libft/libft.h"
 #include <stdio.h>

@@ -2,10 +2,7 @@
 
 void	d_conv(t_env *e)
 {
-	e->cast_size = get_value_size(abs(e->cast.d)) +
-		((e->cast.d < 0) ? 1 : 0);
-	e->output_size += e->cast_size;
-	ft_putnbr(e->cast.d);
+	ft_putnbr_ret(e->cast.d, &e->output_size);
 }
 
 void	capd_conv(t_env *e)
@@ -64,6 +61,10 @@ void	capx_conv(t_env *e)
 
 void	c_conv(t_env *e)
 {
+	int		c;
+
+	c = va_arg(e->arg, int);
+	ft_putchar_ret(c, &e->output_size);
 }
 
 void	capc_conv(t_env *e)

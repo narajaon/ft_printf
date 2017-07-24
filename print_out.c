@@ -11,19 +11,16 @@ void	print_output(char *conv, int *i,
 
 void	print_param(t_env *e, int *pos)
 {
-	void	(*conv)(t_env *, int *);
+	void	(*conv)(t_env *, int *, char *);
 
 	conv = e->conv[e->flags.conv];
-	e->cast.ll = va_arg(e->arg, long long int);
-	conv(e, pos);
+	conv(e, pos, e->out_tmp);
 }
 
 void	get_param(t_env *e, int *pos)
 {
-	if (e->flags.conv == 's')
-		s_conv(e, pos);
-	else
-		print_param(e, pos);
+	print_param(e, pos);
+	apply_opt(e, pos);
 }
 
 void	format_value(char *output, char **str,

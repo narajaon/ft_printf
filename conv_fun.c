@@ -1,16 +1,18 @@
 #include "ft_printf.h"
 
-void	d_conv(t_env *e)
+void	d_conv(t_env *e, int *pos, char *tmp)
 {
-	ft_putnbr_ret(e->cast.d, &e->cast_size);
-	e->output_size += e->cast_size;
+	e->cast.d = va_arg(e->arg, int);
+	e->cast_size = ft_itoa_str(e->cast.d, tmp);
+	e->cast_size = nbr_size(e->cast_size);
+//	NBR(e->cast_size);
 }
 
 void	capd_conv(t_env *e)
 {
 }
 
-void	s_conv(t_env *e, int *pos)
+void	s_conv(t_env *e, int *pos, char *tmp)
 {
 	char	*arg;
 
@@ -22,11 +24,7 @@ void	s_conv(t_env *e, int *pos)
 		print_output((void *)0, &e->cast_size, e);
 	}
 	else
-	{
-		ft_strcpy(e->output, arg);
-		*pos += e->cast_size;
-	}
-	apply_sopt(e, pos, e->cast_size);
+		ft_strcpy(tmp, arg);
 }
 
 void	caps_conv(t_env *e)
@@ -37,12 +35,10 @@ void	p_conv(t_env *e)
 {
 }
 
-void	o_conv(t_env *e, int *pos)
+void	o_conv(t_env *e, int *pos, char *tmp)
 {
-	char	*str;
-
-	str = &e->output[0];
-	e->cast_size = ft_itoa_base(e->cast.d, str, 8);
+	e->cast.d = va_arg(e->arg, int);
+	e->cast_size = ft_itoa_base(e->cast.d, tmp, 8);
 	*pos = e->cast_size;
 }
 
@@ -57,18 +53,21 @@ void	u_conv(t_env *e)
 void	capu_conv(t_env *e)
 {
 }
-void	x_conv(t_env *e)
+void	x_conv(t_env *e, int *pos, char *tmp)
 {
+	e->cast.d = va_arg(e->arg, int);
+	e->cast_size = ft_itoa_base(e->cast.d, tmp, 16);
+	*pos = e->cast_size;
 }
 
 void	capx_conv(t_env *e)
 {
 }
 
-void	c_conv(t_env *e)
+void	c_conv(t_env *e, int *pos, char *tmp)
 {
 	e->cast.d = va_arg(e->arg, int);
-	ft_putchar_ret(e->cast.d, &e->output_size);
+	tmp[*pos] = e->cast.c;
 }
 
 void	capc_conv(t_env *e)

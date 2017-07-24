@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   ft_itoa_str.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: narajaon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/13 11:49:07 by narajaon          #+#    #+#             */
-/*   Updated: 2017/07/24 13:12:46 by narajaon         ###   ########.fr       */
+/*   Created: 2017/07/24 13:12:55 by narajaon          #+#    #+#             */
+/*   Updated: 2017/07/24 13:44:25 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,16 @@ static char		*to_asci(char *str, long n)
 	return (str);
 }
 
-char			*ft_itoa(int n)
+int				ft_itoa_str(int n, char *str)
 {
-	char *str;
-	long len;
+	int		len;
 
 	len = (n < 0) ? -(long)n : (long)n;
 	len = base_len(len);
 	len = (n < 0) ? len + 1 : len;
-	if (!(str = ft_strnew(len)))
-		return (NULL);
 	if (n < 0)
-		str[0] = '-';
+		*str++ = '-';
 	len = (n < 0) ? -(long)n : (long)n;
 	to_asci(str, len);
-	return (str);
+	return (len);
 }

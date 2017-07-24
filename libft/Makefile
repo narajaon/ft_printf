@@ -6,7 +6,7 @@
 #    By: narajaon <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/11 18:59:25 by narajaon          #+#    #+#              #
-#    Updated: 2017/06/06 17:22:54 by narajaon         ###   ########.fr        #
+#    Updated: 2017/07/24 13:15:32 by narajaon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,7 +86,9 @@ SRC = \
 	  get_next_line.c \
 	  ft_putchar_ret.c \
 	  ft_putstr_ret.c \
-	  ft_putnbr_ret.c
+	  ft_putnbr_ret.c \
+	  nbr_size.c \
+	  ft_itoa_str.c
 
 CC = -Wall -Werror -Wextra
 

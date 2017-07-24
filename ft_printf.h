@@ -50,6 +50,7 @@ typedef struct		s_env
 	va_list			arg;
 	void*			conv[128];
 	char			output[BUFF_SIZE];
+	char			out_tmp[BUFF_SIZE];
 	int				output_size; //strings
 	int				cast_size; //numbers
 }					t_env;
@@ -68,24 +69,24 @@ void	print_str(char **str, t_env *e);
 void	print_output(char *conv, int *i,
 		t_env *e);
 
-void	d_conv(t_env *e);
+void	d_conv(t_env *e, int *pos, char *tmp);
 void	capd_conv(t_env *e);
-void	s_conv(t_env *e, int *pos);
+void	s_conv(t_env *e, int *pos, char *tmp);
 void	caps_conv(t_env *e);
 void	p_conv(t_env *e);
 void	i_conv(t_env *e);
-void	o_conv(t_env *e, int *pos);
+void	o_conv(t_env *e, int *pos, char *tmp);
 void	capo_conv(t_env *e);
 void	u_conv(t_env *e);
 void	capu_conv(t_env *e);
-void	x_conv(t_env *e);
+void	x_conv(t_env *e, int *pos, char *tmp);
 void	capx_conv(t_env *e);
-void	c_conv(t_env *e);
+void	c_conv(t_env *e, int *pos, char *tmp);
 void	capc_conv(t_env *e);
 
 
-void	minus_opt(t_env *e, int *pos, int size);
-void	apply_sopt(t_env *e, int *pos, int cast_size);
+void	minus_opt(t_env *e, int *pos);
+void	apply_opt(t_env *e, int *pos);
 
 void	fill_funtab(t_env *e);
 

@@ -5,7 +5,6 @@ void	d_conv(t_env *e, int *pos, char *tmp)
 	e->cast.d = va_arg(e->arg, int);
 	e->cast_size = ft_itoa_str(e->cast.d, tmp);
 	e->cast_size = nbr_size(e->cast_size);
-//	NBR(e->cast_size);
 }
 
 void	capd_conv(t_env *e)
@@ -39,7 +38,6 @@ void	o_conv(t_env *e, int *pos, char *tmp)
 {
 	e->cast.d = va_arg(e->arg, int);
 	e->cast_size = ft_itoa_base(e->cast.d, tmp, 8);
-	*pos = e->cast_size;
 }
 
 void	capo_conv(t_env *e)
@@ -57,7 +55,6 @@ void	x_conv(t_env *e, int *pos, char *tmp)
 {
 	e->cast.d = va_arg(e->arg, int);
 	e->cast_size = ft_itoa_base(e->cast.d, tmp, 16);
-	*pos = e->cast_size;
 }
 
 void	capx_conv(t_env *e)

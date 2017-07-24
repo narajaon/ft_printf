@@ -12,6 +12,8 @@ void	minus_opt(t_env *e, int *pos)
 		e->output[*pos] = ' ';
 		*pos += 1;
 	}
+	e->flags.width = 0;
+	e->flags.opt.min = 0;
 }
 
 void	width_opt(t_env *e, int *pos)
@@ -33,6 +35,8 @@ void	width_opt(t_env *e, int *pos)
 		ft_strcpy(e->output, e->out_tmp);
 		*pos += e->cast_size;
 	}
+	e->flags.width = 0;
+	e->flags.opt.min = 0;
 }
 
 void	apply_opt(t_env *e, int *pos)

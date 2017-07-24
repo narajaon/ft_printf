@@ -3,8 +3,10 @@
 void	d_conv(t_env *e, int *pos, char *tmp)
 {
 	e->cast.d = va_arg(e->arg, int);
+	if (e->flags.opt.sign == ' ' || e->flags.opt.sign == '+')
+		*tmp++ = (e->flags.opt.sign == ' ') ? ' ' : '+';
 	e->cast_size = ft_itoa_str(e->cast.d, tmp);
-	e->cast_size = nbr_size(e->cast_size);
+	e->cast_size = nbr_size(e->cast_size) + ((e->flags.opt.sign) ? 1 : 0);
 }
 
 void	capd_conv(t_env *e)
@@ -44,13 +46,17 @@ void	capo_conv(t_env *e)
 {
 }
 
-void	u_conv(t_env *e)
+void	u_conv(t_env *e, int *pos, char *tmp)
 {
+	e->cast.u = va_arg(e->arg, unsigned int);
+	e->cast_size = ft_uitoa_str(e->cast.u, tmp);
+	e->cast_size = nbr_size(e->cast.u);
 }
 
 void	capu_conv(t_env *e)
 {
 }
+
 void	x_conv(t_env *e, int *pos, char *tmp)
 {
 	e->cast.d = va_arg(e->arg, int);
@@ -63,8 +69,9 @@ void	capx_conv(t_env *e)
 
 void	c_conv(t_env *e, int *pos, char *tmp)
 {
-	e->cast.d = va_arg(e->arg, int);
+	e->cast.c = va_arg(e->arg, int);
 	tmp[*pos] = e->cast.c;
+	e->cast_size = 1;
 }
 
 void	capc_conv(t_env *e)

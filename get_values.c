@@ -15,12 +15,12 @@ void	get_precis(char **str, t_env *e)
 		*str += 1;
 }
 
-void	get_values(char **ptr, t_env *e)
+void	get_values(char **ptr, t_env *e, int *pos)
 {
 	*ptr += 1;
 	//print output[5000]
 	get_opt(ptr, e);
-	is_cast(*ptr) ? get_size(ptr, e) : 0;
+	is_cast(*ptr) ? get_size(ptr, e, *ptr) : 0;
 	ft_isdigit(**ptr) ? get_width(ptr, e) : 0;
 	get_conv(ptr, &e->flags.conv);
 }

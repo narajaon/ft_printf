@@ -6,7 +6,7 @@
 /*   By: narajaon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 18:21:28 by narajaon          #+#    #+#             */
-/*   Updated: 2017/07/24 13:18:14 by narajaon         ###   ########.fr       */
+/*   Updated: 2017/07/24 17:09:15 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,4 +102,5 @@ void			ft_putnbr_ret(int nbr, int *ret);
 int				ft_itoa_base(int num, char *buff, int base);
 int				ft_itoa_str(int n, char *str);
 int				nbr_size(unsigned int nbr);
+unsigned int	ft_uitoa_str(unsigned int n, char *str);
 #endif

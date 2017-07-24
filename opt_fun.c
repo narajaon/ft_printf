@@ -39,6 +39,10 @@ void	width_opt(t_env *e, int *pos)
 	e->flags.opt.min = 0;
 }
 
+void	zero_opt(t_env *e, int *pos)
+{
+}
+
 void	apply_opt(t_env *e, int *pos)
 {
 	if (e->flags.width && e->flags.opt.min)
@@ -50,18 +54,4 @@ void	apply_opt(t_env *e, int *pos)
 		ft_strcpy(&e->output[*pos], e->out_tmp);
 		*pos += e->cast_size;
 	}
-}
-
-void	sign_opt(t_env *e, int *pos)
-{
-	if (e->flags.opt.sign == ' ')
-		e->output[*pos++] = ' ';
-	else if (e->flags.opt.sign == '+')
-		e->output[*pos++] = '+';
-	else
-		ft_strcpy(e->output, e->out_tmp);
-}
-
-void	zero_opt(t_env *e, int *pos)
-{
 }

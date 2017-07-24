@@ -21,13 +21,14 @@ void	get_param(t_env *e, int *pos)
 {
 	print_param(e, pos);
 	apply_opt(e, pos);
+	ft_strclr(e->out_tmp);
 }
 
 void	format_value(char *output, char **str,
 			int *pos, t_env *e)
 {
 	print_output(output, pos, e);
-	get_values(str, e);
+	get_values(str, e, pos);
 	get_param(e, pos);
 }
 

@@ -8,6 +8,12 @@
 #include <inttypes.h>
 #include <stdarg.h>
 
+#define HH 0
+#define Z 1
+#define H 2
+#define L 3
+#define LL 4
+#define J 5
 
 #define STR(x) printf(#x " = %s\n", x)
 #define NBR(x) printf(#x " = %d\n", x)
@@ -16,6 +22,7 @@
 typedef union		u_cast
 {
 	int				d;
+	unsigned int	u;
 	short int		h;
 	signed char		hh;
 	char			c;
@@ -48,21 +55,22 @@ typedef struct		s_env
 	t_cast			cast;
 	t_flags			flags;
 	va_list			arg;
-	void*			conv[128];
+	void			*conv[128];
 	char			output[BUFF_SIZE];
 	char			out_tmp[BUFF_SIZE];
 	int				output_size; //strings
 	int				cast_size; //numbers
+	int				cast_id;
 }					t_env;
 
 char	is_conv(char c);
 int		is_cast(char *str);
 char	is_opt(char *str);
 
-void	get_size(char **str, t_env *e);
+void	get_size(char **str, t_env *e, char *ptr);
 void	get_opt(char **str, t_env *e);
 void	get_conv(char **str, char *conv);
-void	get_values(char **ptr, t_env *e);
+void	get_values(char **ptr, t_env *e, int *pos);
 int		get_value_size(long long int value);
 
 void	print_str(char **str, t_env *e);
@@ -77,7 +85,7 @@ void	p_conv(t_env *e);
 void	i_conv(t_env *e);
 void	o_conv(t_env *e, int *pos, char *tmp);
 void	capo_conv(t_env *e);
-void	u_conv(t_env *e);
+void	u_conv(t_env *e, int *pos, char *tmp);
 void	capu_conv(t_env *e);
 void	x_conv(t_env *e, int *pos, char *tmp);
 void	capx_conv(t_env *e);

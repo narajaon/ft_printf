@@ -6,7 +6,7 @@
 #    By: narajaon <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/04/11 18:59:25 by narajaon          #+#    #+#              #
-#    Updated: 2017/07/24 13:15:32 by narajaon         ###   ########.fr        #
+#    Updated: 2017/07/24 17:09:57 by narajaon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -88,6 +88,7 @@ SRC = \
 	  ft_putstr_ret.c \
 	  ft_putnbr_ret.c \
 	  nbr_size.c \
+	  ft_uitoa_str.c \
 	  ft_itoa_str.c
 
 CC = -Wall -Werror -Wextra

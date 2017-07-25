@@ -4,7 +4,7 @@ int		cast_id(char *str)
 {
 	int		id;
 
-	id = -1;
+	id = 0;
 	if (!ft_strcmp(str, "hh"))
 		id = HH;
 	else if (!ft_strcmp(str, "z"))
@@ -23,7 +23,7 @@ int		cast_id(char *str)
 
 int		is_cast(char *src)
 {
-	char		str[2];
+	char		str[3];
 	int			i;
 
 	i = 0;
@@ -40,7 +40,6 @@ int		is_cast(char *src)
 		src += 1;
 	}
 	str[i] = '\0';
-//	exit(STR(str));
 	if (!ft_strcmp(str, "hh") || !ft_strcmp(str, "h") ||
 		!ft_strcmp(str, "l") || !ft_strcmp(str, "ll") ||
 		!ft_strcmp(str, "j") || !ft_strcmp(str, "z"))
@@ -50,6 +49,42 @@ int		is_cast(char *src)
 
 void	get_size(char **str, t_env *e, char *ptr)
 {
-	if ((e->cast_id = is_cast(*str)) >= 0)
+	if ((e->cast_id = is_cast(*str)) > 0)
 		*str += (e->cast_id == LL || e->cast_id == HH) ? 2 : 1;
+}
+
+void	d_cst(t_env *e, int *pos, char *tmp)
+{
+	if (e->cast_id == HH)
+		e->cast_size = ft_itoa_str(e->cast.hh, tmp);
+	else if (e->cast_id == H)
+		e->cast_size = ft_itoa_str(e->cast.h, tmp);
+	else if (e->cast_id == L)
+		e->cast_size = ft_lltoa_str(e->cast.l, tmp);
+	else if (e->cast_id == LL)
+		e->cast_size = ft_lltoa_str(e->cast.ll, tmp);
+	else if (e->cast_id == J)
+		e->cast_size = ft_itoa_str(e->cast.j, tmp);
+	else if (e->cast_id == Z)
+		e->cast_size = ft_itoa_str(e->cast.z, tmp);
+	else
+		e->cast_size = ft_itoa_str(e->cast.d, tmp);
+}
+
+void	oux_cst(t_env *e, int *pos, char *tmp, int base)
+{
+	if (e->cast_id == HH)
+		e->cast_size = ft_ltoa_base(e->ucast.hh, tmp, base);
+	else if (e->cast_id == H)
+		e->cast_size = ft_ltoa_base(e->ucast.h, tmp, base);
+	else if (e->cast_id == L)
+		e->cast_size = ft_ltoa_base(e->ucast.l, tmp, base);
+	else if (e->cast_id == LL)
+		e->cast_size = ft_ltoa_base(e->ucast.ll, tmp, base);
+	else if (e->cast_id == J)
+		e->cast_size = ft_ltoa_base(e->ucast.j, tmp, base);
+	else if (e->cast_id == Z)
+		e->cast_size = ft_ltoa_base(e->ucast.z, tmp, base);
+	else
+		e->cast_size = ft_ltoa_base(e->ucast.d, tmp, base);
 }

@@ -43,6 +43,17 @@ void	zero_opt(t_env *e, int *pos)
 {
 }
 
+void	hash_opt(t_env *e, int *pos)
+{
+	e->output[*pos] = '0';
+	*pos += 1;
+	if (e->flags.conv == 'x' || e->flags.conv == 'X')
+	{
+		e->output[*pos] = (e->flags.conv == 'x') ? 'x' : 'X';
+		*pos += 1;
+	}
+}
+
 void	apply_opt(t_env *e, int *pos)
 {
 	if (e->flags.width && e->flags.opt.min)

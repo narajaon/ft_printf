@@ -6,7 +6,7 @@
 /*   By: narajaon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 18:21:28 by narajaon          #+#    #+#             */
-/*   Updated: 2017/07/24 17:09:15 by narajaon         ###   ########.fr       */
+/*   Updated: 2017/07/25 16:57:28 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,10 @@ void			ft_putchar_ret(char str, int *ret);
 void			ft_putstr_ret(char *str, int *ret);
 void			ft_putnbr_ret(int nbr, int *ret);
 int				ft_itoa_base(int num, char *buff, int base);
-int				ft_itoa_str(int n, char *str);
-int				nbr_size(unsigned int nbr);
+int				ft_ltoa_base(long long int num, char *buff, int base);
+int				ft_itoa_str(int  n, char *str);
 unsigned int	ft_uitoa_str(unsigned int n, char *str);
+int				ft_ltoa_str(long int n, char *str);
+int				ft_lltoa_str(long long int n, char *str);
+int				nbr_size(unsigned long long int nbr);
 #endif

@@ -1,19 +1,20 @@
 #ifndef FT_PRINTF
 #define FT_PRINTF
-#define XDEBUG
+#define DEBUG
 #define BUFF_SIZE 4000
 
 #include "libft/libft.h"
 #include <stdio.h>
 #include <inttypes.h>
 #include <stdarg.h>
+#include <limits.h>
 
-#define HH 0
 #define Z 1
 #define H 2
 #define L 3
 #define LL 4
 #define J 5
+#define HH 6
 
 #define STR(x) printf(#x " = %s\n", x)
 #define NBR(x) printf(#x " = %d\n", x)
@@ -23,7 +24,7 @@ typedef union		u_cast
 {
 	int				d;
 	unsigned int	u;
-	short int		h;
+	short			h;
 	signed char		hh;
 	char			c;
 	long int		l;
@@ -32,6 +33,17 @@ typedef union		u_cast
 	size_t			z;
 	intmax_t		j;
 }					t_cast;
+
+typedef union		u_ucast
+{
+	unsigned int			d;
+	unsigned short			h;
+	unsigned char			hh;
+	unsigned long int		l;
+	unsigned long long int	ll;
+	size_t					z;
+	uintmax_t				j;
+}					t_ucast;
 
 typedef struct		s_opt
 {
@@ -53,6 +65,7 @@ typedef struct		s_flags
 typedef struct		s_env
 {
 	t_cast			cast;
+	t_ucast			ucast;
 	t_flags			flags;
 	va_list			arg;
 	void			*conv[128];
@@ -81,7 +94,7 @@ void	d_conv(t_env *e, int *pos, char *tmp);
 void	capd_conv(t_env *e);
 void	s_conv(t_env *e, int *pos, char *tmp);
 void	caps_conv(t_env *e);
-void	p_conv(t_env *e);
+void	p_conv(t_env *e, int *pos, char *tmp);
 void	i_conv(t_env *e);
 void	o_conv(t_env *e, int *pos, char *tmp);
 void	capo_conv(t_env *e);
@@ -92,10 +105,14 @@ void	capx_conv(t_env *e);
 void	c_conv(t_env *e, int *pos, char *tmp);
 void	capc_conv(t_env *e);
 
+void	d_cst(t_env *e, int *pos, char *tmp);
+void	oux_cst(t_env *e, int *pos, char *tmp, int base);
 
 void	minus_opt(t_env *e, int *pos);
 void	apply_opt(t_env *e, int *pos);
+void	hash_opt(t_env *e, int *pos);
 
 void	fill_funtab(t_env *e);
 
+int		ft_printf(const char *str,...);
 #endif

@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa_str.c                                      :+:      :+:    :+:   */
+/*   ltoa.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: narajaon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/24 13:12:55 by narajaon          #+#    #+#             */
-/*   Updated: 2017/07/25 16:47:36 by narajaon         ###   ########.fr       */
+/*   Created: 2017/07/25 13:33:01 by narajaon          #+#    #+#             */
+/*   Updated: 2017/07/25 16:47:35 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-
-static int		base_len(long n)
+static int		base_len(long long int n)
 {
 	if (n < 10)
 		return (1);
 	return (base_len(n / 10) + 1);
 }
 
-static char		*to_asci(char *str, long n)
+static char		*to_asci(char *str, long long int n)
 {
 	if (n >= 10)
 	{
@@ -36,41 +35,16 @@ static char		*to_asci(char *str, long n)
 	return (str);
 }
 
-int				ft_itoa_str(int n, char *str)
+int				ft_lltoa_str(long long int n, char *str)
 {
-	int		val;
 	int		ret;
 
-	val = 0;
-	ret = (n < 0) ? 1 : 0;
-	val = (n < 0) ? -(long)n : (long)n;
-	ret += base_len(val);
+	ret = 0;
+	ret = (n < 0) ? ret++ : ret;
+	ret += base_len(n);
 	if (n < 0)
 		*str++ = '-';
-	to_asci(str, val);
+	n = (n < 0) ? -n : n;
+	to_asci(str, n);
 	return (ret);
 }
-
-/*
-   int		ft_itoa_str(uintmax_t n, char *s)
-   {
-   int			i;
-   long long	nb;
-   long long	sign;
-   int			ret;
-
-   sign = n;
-   nb = n;
-   i = 2 + ((intmax_t)n < 0);
-   while (n /= 10)
-   i++;
-   ret = i;
-   s[i--] = '\0';
-   s[i--] = nb % 10 + '0';
-   while (nb /= 10)
-   s[i--] = nb % 10 + '0';
-   if (sign < 0)
- *s = '-';
- return (ret);
- }
- */

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ltoa_base.c                                     :+:      :+:    :+:   */
+/*   ft_cap_itoa_str.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: narajaon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/25 16:56:16 by narajaon          #+#    #+#             */
-/*   Updated: 2017/07/26 18:38:10 by narajaon         ###   ########.fr       */
+/*   Created: 2017/07/26 09:31:02 by narajaon          #+#    #+#             */
+/*   Updated: 2017/07/26 19:21:23 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void		reverse(char *str, int len)
 	}
 }
 
-int				ft_ltoa_base(long long int num, char *buff, int base)
+int				ft_cap_ltoa_base(long long int num, char *buff, int base)
 {
 	int				i;
 	long long 		rem;
@@ -58,7 +58,7 @@ int				ft_ltoa_base(long long int num, char *buff, int base)
 	while (num)
 	{
 		rem = num % base;
-		buff[i++] = (rem > 9) ? (rem - 10 + 'a') : (rem + '0');
+		buff[i++] = (rem > 9) ? (rem - 10 + 'A') : (rem + '0');
 		num /= base;
 	}
 	if (neg)

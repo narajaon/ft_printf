@@ -6,7 +6,7 @@
 /*   By: narajaon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/25 15:16:21 by narajaon          #+#    #+#             */
-/*   Updated: 2017/07/25 16:47:34 by narajaon         ###   ########.fr       */
+/*   Updated: 2017/07/26 18:58:24 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ int				ft_ltoa_str(long n, char *str)
 {
 	int		ret;
 
-	ret = base_len(n);
-	ret = (n < 0) ? ret++ : ret;
 	if (n < 0)
 		*str++ = '-';
+	ret = (n < 0) ? 1 : 0;
 	n = (n < 0) ? -n : n;
+	ret += base_len(n);
 	to_asci(str, n);
 	return (ret);
 }

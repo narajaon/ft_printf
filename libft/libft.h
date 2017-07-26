@@ -6,7 +6,7 @@
 /*   By: narajaon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 18:21:28 by narajaon          #+#    #+#             */
-/*   Updated: 2017/07/25 16:57:28 by narajaon         ###   ########.fr       */
+/*   Updated: 2017/07/26 11:20:48 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,14 +93,17 @@ int				ft_isspace(int c);
 int				ft_iseven(int nb);
 void			ft_print_words_tables(char **tab);
 long			ft_abs(long nb);
+
 int				get_next_line(int fd, char **line);
 int				ft_atoi_base(const char *str, int str_base);
-
 void			ft_putchar_ret(char str, int *ret);
 void			ft_putstr_ret(char *str, int *ret);
 void			ft_putnbr_ret(int nbr, int *ret);
+int				ft_strcpy_ret(char *dest, const char *src);
+int				ft_strncpy_ret(char *dest, const char *src, size_t n);
 int				ft_itoa_base(int num, char *buff, int base);
 int				ft_ltoa_base(long long int num, char *buff, int base);
+int				ft_cap_ltoa_base(long long int num, char *buff, int base);
 int				ft_itoa_str(int  n, char *str);
 unsigned int	ft_uitoa_str(unsigned int n, char *str);
 int				ft_ltoa_str(long int n, char *str);

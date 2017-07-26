@@ -47,9 +47,10 @@ void	hash_opt(t_env *e, int *pos)
 {
 	e->output[*pos] = '0';
 	*pos += 1;
-	if (e->flags.conv == 'x' || e->flags.conv == 'X')
+	if (e->flags.conv == 'x' || e->flags.conv == 'X' ||
+			e->flags.conv == 'p')
 	{
-		e->output[*pos] = (e->flags.conv == 'x') ? 'x' : 'X';
+		e->output[*pos] = (e->flags.conv == 'X') ? 'X' : 'x';
 		*pos += 1;
 	}
 }

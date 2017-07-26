@@ -12,11 +12,12 @@ int		main(int ac, char **av)
 		return (0);
 //	ft_printf(av[1], c);
 //	ft_printf(av[1], (long long int)ft_atoi(av[2]));
-	ft_printf(av[1], LONG_MAX);
-//	ft_printf(av[1], ft_aoi(av[2]));
-	printf("\nvs\n\n");
-//	ret = printf(av[1], ft_atoi(av[2]));
-	ret = printf(av[1], LONG_MAX);
+	ft_printf("|%5%|");
+//	ft_printf(av[1], ft_atoi(av[2]), ft_atoi(av[3]));
+//	printf("a%xb%xc%xd", 0, 55555, 100000);
+	printf("\nvs\n");
+//	ret = printf(av[1], ft_atoi(av[2]), ft_atoi(av[3]));
+	ret = printf("|%5%|");
 	printf("\nreal out %d\n", ret);
 	return (0);
 }

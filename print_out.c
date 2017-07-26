@@ -24,26 +24,67 @@ void	get_param(t_env *e, int *pos)
 	ft_strclr(e->out_tmp);
 }
 
-void	format_value(char *output, char **str,
-			int *pos, t_env *e)
+int		stock_perc(char **str, t_env *e, int *pos)
 {
+	int		i;
+	char	*ptr;
+
+	//	ft_bzero(e->out_tmp, BUFF_SIZE);
+	i = 0;
+	ptr = *str;
+	while (*ptr == '%')
+	{
+		e->out_tmp[i] = *ptr;
+		ptr++;
+		i++;
+	}
+	*pos += ft_strncpy_ret(&e->output[*pos], e->out_tmp, i / 2);
+	*str += i;
+	ft_bzero(e->out_tmp, i);
+	if (i % 2 == 0 || !**str)
+		return (0);
+	//STR(e->output);
+	return (1);
+}
+
+void	format_value(char *output, char **str,
+		int *pos, t_env *e)
+{
+	int		ret;
+
+	ret = stock_perc(str, e, pos);
 	print_output(output, pos, e);
-	get_values(str, e, pos);
-	get_param(e, pos);
+	if (ret)
+	{
+		get_values(str, e, pos);
+		if (e->flags.conv)
+			get_param(e, pos);
+		/*
+		else
+		{
+			print_param(e, pos);
+			apply_opt(e, pos);
+			ft_strclr(e->out_tmp);
+		}
+		*/
+	}
+	//	STR(*str);
 }
 
 void	print_str(char **str, t_env *e)
 {
 	int		i;
+	int		perc;
 	char	*ptr;
 
 	i = 0;
+	perc = 0;
 	ptr = e->output;
 	while (**str)
 	{
 		if (i == BUFF_SIZE)
 			print_output(ptr, &i, e);
-		if (**str == '%')
+		while (**str == '%')
 			format_value(ptr, str, &i, e);
 		if (!**str)
 			break ;

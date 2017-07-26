@@ -8,6 +8,7 @@
 #include <inttypes.h>
 #include <stdarg.h>
 #include <limits.h>
+#include <wchar.h>
 
 #define Z 1
 #define H 2
@@ -16,9 +17,9 @@
 #define J 5
 #define HH 6
 
-#define STR(x) printf(#x " = %s\n", x)
-#define NBR(x) printf(#x " = %d\n", x)
-#define CHAR(x) printf(#x " = %c\n", x)
+#define STR(x) printf(#x " = |%s|\n", x)
+#define NBR(x) printf(#x " = |%d|\n", x)
+#define CHAR(x) printf(#x " = |%c|\n", x)
 
 typedef union		u_cast
 {
@@ -32,6 +33,7 @@ typedef union		u_cast
 	float			f;
 	size_t			z;
 	intmax_t		j;
+	wint_t			lc;
 }					t_cast;
 
 typedef union		u_ucast
@@ -82,7 +84,7 @@ char	is_opt(char *str);
 
 void	get_size(char **str, t_env *e, char *ptr);
 void	get_opt(char **str, t_env *e);
-void	get_conv(char **str, char *conv);
+void	get_conv(char **str, t_env *e, int *pos);
 void	get_values(char **ptr, t_env *e, int *pos);
 int		get_value_size(long long int value);
 
@@ -91,19 +93,19 @@ void	print_output(char *conv, int *i,
 		t_env *e);
 
 void	d_conv(t_env *e, int *pos, char *tmp);
-void	capd_conv(t_env *e);
+void	capd_conv(t_env *e, int *pos, char *tmp);
 void	s_conv(t_env *e, int *pos, char *tmp);
 void	caps_conv(t_env *e);
 void	p_conv(t_env *e, int *pos, char *tmp);
 void	i_conv(t_env *e);
 void	o_conv(t_env *e, int *pos, char *tmp);
-void	capo_conv(t_env *e);
+void	capo_conv(t_env *e, int *pos, char *tmp);
 void	u_conv(t_env *e, int *pos, char *tmp);
-void	capu_conv(t_env *e);
+void	capu_conv(t_env *e, int *pos, char *tmp);
 void	x_conv(t_env *e, int *pos, char *tmp);
-void	capx_conv(t_env *e);
+void	capx_conv(t_env *e, int *pos, char *tmp);
 void	c_conv(t_env *e, int *pos, char *tmp);
-void	capc_conv(t_env *e);
+void	capc_conv(t_env *e, int *pos, char *tmp);
 
 void	d_cst(t_env *e, int *pos, char *tmp);
 void	oux_cst(t_env *e, int *pos, char *tmp, int base);

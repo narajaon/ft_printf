@@ -6,12 +6,11 @@
 /*   By: narajaon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/24 13:12:55 by narajaon          #+#    #+#             */
-/*   Updated: 2017/07/25 16:47:36 by narajaon         ###   ########.fr       */
+/*   Updated: 2017/07/26 09:32:11 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
 
 static int		base_len(long n)
 {
@@ -50,27 +49,3 @@ int				ft_itoa_str(int n, char *str)
 	to_asci(str, val);
 	return (ret);
 }
-
-/*
-   int		ft_itoa_str(uintmax_t n, char *s)
-   {
-   int			i;
-   long long	nb;
-   long long	sign;
-   int			ret;
-
-   sign = n;
-   nb = n;
-   i = 2 + ((intmax_t)n < 0);
-   while (n /= 10)
-   i++;
-   ret = i;
-   s[i--] = '\0';
-   s[i--] = nb % 10 + '0';
-   while (nb /= 10)
-   s[i--] = nb % 10 + '0';
-   if (sign < 0)
- *s = '-';
- return (ret);
- }
- */

@@ -17,7 +17,7 @@ int		ft_printf(const char *str,...)
 		e.flags.opt.min, e.flags.opt.hash,
 		e.flags.opt.sign, e.flags.opt.decal);
 	NBR(e.cast_id);
+	printf("\noutput_size |%d|\n", e.output_size);
 #endif
-//	printf("\noutput_size |%d|\n", e.output_size);
 	return (e.output_size);
 }

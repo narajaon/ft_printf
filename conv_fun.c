@@ -117,7 +117,8 @@ void	capo_conv(t_env *e, int *pos, char *tmp)
 void	u_conv(t_env *e, int *pos, char *tmp)
 {
 	e->ucast.ll = va_arg(e->arg, unsigned long long);
-	oux_cst(e, pos, tmp, 10);
+	if (!manage_limits(e, pos))
+		oux_cst(e, pos, tmp, 10);
 }
 
 void	capu_conv(t_env *e, int *pos, char *tmp) //meme chose

@@ -13,6 +13,9 @@ $(NAME): $(SRC) $(HEAD)
 	@ar rc $(NAME) $(OBJ)
 	gcc main.c libftprintf.a
 
+git : clean
+	git add *
+
 clean:
 	@rm -f $(OBJ)
 

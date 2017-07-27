@@ -72,7 +72,7 @@ typedef struct		s_env
 	va_list			arg;
 	void			*conv[128];
 	char			output[BUFF_SIZE];
-	char			out_tmp[15];
+	char			out_tmp[24];
 	int				output_size; //strings
 	int				cast_size; //numbers
 	int				cast_id;

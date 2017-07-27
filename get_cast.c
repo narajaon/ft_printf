@@ -87,7 +87,7 @@ void	oux_cst(t_env *e, int *pos, char *tmp, int base)
 	else if (e->cast_id == Z)
 		e->cast_size = ft_ltoa_base(e->ucast.z, tmp, base);
 	else if (e->flags.conv == 'O' || e->flags.conv == 'U')
-		e->cast_size = ft_ltoa_base(e->ucast.l, tmp, base);
+		e->cast_size = ft_ltoa_base(e->ucast.ll, tmp, base);
 	else
 		e->cast_size = ft_ltoa_base(e->ucast.d, tmp, base);
 }

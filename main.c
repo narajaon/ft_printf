@@ -1,5 +1,5 @@
 #include "ft_printf.h"
-#define VALUE "%hhi", CHAR_MIN - 42
+#define VALUE "%O", LONG_MIN
 
 int		main(int ac, char **av)
 {

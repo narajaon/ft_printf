@@ -26,7 +26,7 @@ void	width_opt(t_env *e, int *pos)
 	if (i > 0)
 	{
 		while (posi < i )
-			e->output[*pos + posi++] = ' ';
+			e->output[*pos + posi++] = e->flags.opt.decal;
 		ft_strcpy(&e->output[*pos + posi], e->out_tmp);
 		*pos += e->cast_size + posi;
 		//		exit(NBR(ft_strlen(e->output)));
@@ -40,8 +40,14 @@ void	width_opt(t_env *e, int *pos)
 	e->flags.opt.min = 0;
 }
 
-void	zero_opt(t_env *e, int *pos)
+void	sign_opt(t_env *e, int *pos)
 {
+	if (e->flags.opt.sign && e->flags.width > e->cast_size)
+	{
+		e->output[*pos] = e->flags.opt.sign;
+		*pos += 1;
+		e->flags.width -= 1;
+	}
 }
 
 void	hash_opt(t_env *e, int *pos)
@@ -60,6 +66,7 @@ void	hash_opt(t_env *e, int *pos)
 
 void	apply_opt(t_env *e, int *pos)
 {
+	sign_opt(e, pos);
 	if (e->flags.width && e->flags.opt.min)
 		minus_opt(e, pos);
 	else if (e->flags.width && !e->flags.opt.min)

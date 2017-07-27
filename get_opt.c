@@ -36,6 +36,8 @@ void	opt_resolver(char c, t_opt *opt)
 		opt->hash = '#';
 	else if (c == '0')
 		opt->decal = '0';
+	else
+		opt->decal = ' ';
 }
 
 void	get_opt(char **str, t_env *e)

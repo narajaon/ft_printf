@@ -29,6 +29,7 @@ void	width_opt(t_env *e, int *pos)
 			e->output[*pos + posi++] = ' ';
 		ft_strcpy(&e->output[*pos + posi], e->out_tmp);
 		*pos += e->cast_size + posi;
+		//		exit(NBR(ft_strlen(e->output)));
 	}
 	else
 	{
@@ -45,13 +46,15 @@ void	zero_opt(t_env *e, int *pos)
 
 void	hash_opt(t_env *e, int *pos)
 {
-	e->output[*pos] = '0';
-	*pos += 1;
-	if (e->flags.conv == 'x' || e->flags.conv == 'X' ||
-			e->flags.conv == 'p')
+	if (e->ucast.ll != 0)
 	{
-		e->output[*pos] = (e->flags.conv == 'X') ? 'X' : 'x';
+		e->output[*pos] = '0';
 		*pos += 1;
+		if (e->flags.conv == 'x' || e->flags.conv == 'X')
+		{
+			e->output[*pos] = (e->flags.conv == 'X') ? 'X' : 'x';
+			*pos += 1;
+		}
 	}
 }
 

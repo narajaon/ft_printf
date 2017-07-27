@@ -20,8 +20,6 @@ void	print_param(t_env *e, int *pos)
 void	get_param(t_env *e, int *pos)
 {
 	print_param(e, pos);
-	apply_opt(e, pos);
-	ft_strclr(e->out_tmp);
 }
 
 int		stock_perc(char **str, t_env *e, int *pos)
@@ -29,7 +27,6 @@ int		stock_perc(char **str, t_env *e, int *pos)
 	int		i;
 	char	*ptr;
 
-	//	ft_bzero(e->out_tmp, BUFF_SIZE);
 	i = 0;
 	ptr = *str;
 	while (*ptr == '%')
@@ -43,12 +40,10 @@ int		stock_perc(char **str, t_env *e, int *pos)
 	ft_bzero(e->out_tmp, i);
 	if (i % 2 == 0 || !**str)
 		return (0);
-	//STR(e->output);
 	return (1);
 }
 
-void	format_value(char *output, char **str,
-		int *pos, t_env *e)
+void	format_value(char *output, char **str, int *pos, t_env *e)
 {
 	int		ret;
 
@@ -59,16 +54,9 @@ void	format_value(char *output, char **str,
 		get_values(str, e, pos);
 		if (e->flags.conv)
 			get_param(e, pos);
-		/*
-		else
-		{
-			print_param(e, pos);
-			apply_opt(e, pos);
-			ft_strclr(e->out_tmp);
-		}
-		*/
+		apply_opt(e, pos);
+		ft_strclr(e->out_tmp);
 	}
-	//	STR(*str);
 }
 
 void	print_str(char **str, t_env *e)

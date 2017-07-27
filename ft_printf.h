@@ -1,7 +1,7 @@
 #ifndef FT_PRINTF
 #define FT_PRINTF
 #define DEBUG
-#define BUFF_SIZE 4000
+#define BUFF_SIZE 256
 
 #include "libft/libft.h"
 #include <stdio.h>
@@ -72,7 +72,7 @@ typedef struct		s_env
 	va_list			arg;
 	void			*conv[128];
 	char			output[BUFF_SIZE];
-	char			out_tmp[BUFF_SIZE];
+	char			out_tmp[15];
 	int				output_size; //strings
 	int				cast_size; //numbers
 	int				cast_id;
@@ -95,7 +95,7 @@ void	print_output(char *conv, int *i,
 void	d_conv(t_env *e, int *pos, char *tmp);
 void	capd_conv(t_env *e, int *pos, char *tmp);
 void	s_conv(t_env *e, int *pos, char *tmp);
-void	caps_conv(t_env *e);
+void	caps_conv(t_env *e, int *pos, char *tmp);
 void	p_conv(t_env *e, int *pos, char *tmp);
 void	i_conv(t_env *e);
 void	o_conv(t_env *e, int *pos, char *tmp);

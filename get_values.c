@@ -18,7 +18,9 @@ void	get_precis(char **str, t_env *e)
 void	get_values(char **ptr, t_env *e, int *pos)
 {
 //	*ptr += 1;
-	while (**ptr && (is_opt(*ptr) || is_cast(*ptr)))
+//	exit(STR(*ptr));
+	while (**ptr && (is_opt(*ptr) || is_cast(*ptr) ||
+			ft_isdigit(**ptr)))
 	{
 		get_opt(ptr, e);
 		is_cast(*ptr) ? get_size(ptr, e, *ptr) : 0;

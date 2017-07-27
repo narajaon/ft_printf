@@ -16,15 +16,6 @@ void	get_conv(char **str, t_env *e, int *pos)
 	e->flags.conv = is_conv(**str);
 	if (e->flags.conv != 0)
 		*str += 1;
-	else
-	{
-		e->output[*pos] = **str;
-		//exit(STR(*str));
-		*str += 1;
-		*pos += 1;
-//		if (!**str)
-//			exit(1);
-	}
 }
 
 char	is_opt(char *str)

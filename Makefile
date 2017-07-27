@@ -6,7 +6,7 @@ CC = gcc
 FLAG = -c
 OBJ = *.o
 
-all: $(NAME)
+all: $(NAME) clean
 
 $(NAME): $(SRC) $(HEAD)
 	@$(CC) $(FLAG) $(SRC)

@@ -1,5 +1,5 @@
 #include "ft_printf.h"
-#define VALUE "%O", LONG_MIN
+#define VALUE "|%10c|", 'c'
 
 int		main(int ac, char **av)
 {

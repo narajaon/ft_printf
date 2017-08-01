@@ -17,10 +17,6 @@ void	print_param(t_env *e, int *pos)
 	conv(e, pos, e->out_tmp);
 }
 
-void	get_param(t_env *e, int *pos)
-{
-	print_param(e, pos);
-}
 
 int		stock_perc(char **str, t_env *e, int *pos)
 {
@@ -48,12 +44,12 @@ void	format_value(char *output, char **str, int *pos, t_env *e)
 	int		ret;
 
 	ret = stock_perc(str, e, pos);
-	print_output(output, pos, e);
+	//print_output(output, pos, e);
 	if (ret)
 	{
 		get_values(str, e, pos);
 		if (e->flags.conv)
-			get_param(e, pos);
+			print_param(e, pos);
 		apply_opt(e, pos);
 		ft_strclr(e->out_tmp);
 	}

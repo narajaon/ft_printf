@@ -21,9 +21,21 @@ int		manage_limits(t_env *e, int *pos)
 	return (0);
 }
 
+void	put_minus(t_env *e, int *pos, char *tmp)
+{
+	if (e->cast.d < 0 && e->flags.opt.decal == '0')
+	{
+		e->cast.d *= -1;
+		e->output[0] = '-';
+		e->flags.width--;
+		*pos += 1;
+	}
+}
+
 void	d_conv(t_env *e, int *pos, char *tmp)
 {
 	e->cast.ll = va_arg(e->arg, long long int);
+//	put_minus(e, pos, tmp);
 	if (!manage_limits(e, pos))
 	{
 		if (e->cast.d > 0)
@@ -146,16 +158,23 @@ void	capx_conv(t_env *e, int *pos, char *tmp)
 
 void	c_conv(t_env *e, int *pos, char *tmp)
 {
-	e->cast.c = va_arg(e->arg, int);
-	tmp[*pos] = e->cast.c;
-	e->cast_size = 1;
+	e->cast.c = va_arg(e->arg, unsigned int);
+	//CHAR(e->cast.c);
+	*tmp = e->cast.c;
+//	tmp++;
+//	*pos += 1;
+	e->cast_size += 1;
+//	NBR(*pos);
+//	exit(1);
 }
 
 void	capc_conv(t_env *e, int *pos, char *tmp)
 {
+	/*
 	e->cast.c = va_arg(e->arg, wint_t);
 	tmp[*pos] = e->cast.lc;
-	e->cast_size = 1;
+	e->cast_size += 1;
+	*/
 }
 
 void	fill_funtab(t_env *e)

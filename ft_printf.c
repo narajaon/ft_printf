@@ -11,6 +11,7 @@ int		ft_printf(const char *str,...)
 	va_end(e.arg);
 #ifndef DEBUG
 	printf("\nwidth |%d|\n", e.flags.width);
+	printf("\nprecis |%d|\n", e.flags.precis);
 	printf("conv |%c|\n", e.flags.conv);
 	printf("min |%c| hash |%c| sign |%c|\
 	decal |%c|\n",

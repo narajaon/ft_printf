@@ -53,6 +53,7 @@ typedef struct		s_opt
 	char			hash;
 	char			sign;
 	char			decal;
+	char			fill_prec;
 }					t_opt;
 
 typedef struct		s_flags
@@ -72,10 +73,11 @@ typedef struct		s_env
 	va_list			arg;
 	void			*conv[128];
 	char			output[BUFF_SIZE];
-	char			out_tmp[24];
+	char			out_tmp[64];
 	int				output_size; //strings
 	int				cast_size; //numbers
 	int				cast_id;
+	int				cast_sign;
 }					t_env;
 
 char	is_conv(char c);

@@ -7,6 +7,7 @@ void	print_output(char *conv, int *i,
 	(conv) ? ft_bzero(conv, *i) : 0;
 	e->output_size += *i;
 	*i = 0;
+//	exit(1);
 }
 
 void	print_param(t_env *e, int *pos)
@@ -14,6 +15,7 @@ void	print_param(t_env *e, int *pos)
 	void	(*conv)(t_env *, int *, char *);
 
 	conv = e->conv[e->flags.conv];
+	e->flags.opt.fill_prec = '0'; //precision filler
 	conv(e, pos, e->out_tmp);
 }
 
@@ -50,7 +52,7 @@ void	format_value(char *output, char **str, int *pos, t_env *e)
 		get_values(str, e, pos);
 		if (e->flags.conv)
 			print_param(e, pos);
-		apply_opt(e, pos);
+		(e->flags.conv != 'c') ? apply_opt(e, pos) : 0;
 		ft_strclr(e->out_tmp);
 	}
 }

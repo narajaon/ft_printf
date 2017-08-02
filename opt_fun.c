@@ -20,8 +20,17 @@ void	apply_precis_wid(t_env *e, int *pos, int *posi, int prec_pad)
 {
 	if (e->cast_sign < 0)
 	{
-		e->output[*pos + *posi] = '-';
-		*pos += 1;
+		if (e->flags.opt.decal == '0')
+			e->output[*pos] = '-';
+		else
+		{
+			e->output[*pos + *posi] = '-';
+			*posi += 1;
+		}
+		prec_pad++; //         ???
+//			NBR(*pos);
+	//	STR(e->output);
+	//	*pos += 1;
 	}
 	while (*posi < prec_pad)
 	{
@@ -33,12 +42,21 @@ void	apply_precis_wid(t_env *e, int *pos, int *posi, int prec_pad)
 		e->out_tmp[e->flags.precis] = '\0';
 		e->cast_size = (e->cast_size > e->flags.precis) ?
 			e->flags.precis : e->cast_size;
-	//	STR(e->out_tmp);
 	}
 	//	CHAR(e->flags.opt.fill_prec);
 	//	NBR(*posi);
 	//	NBR(prec_pad);
 	//	exit(1);
+}
+
+void	init_prec_wid(t_env *e, int *prec_pad, int *wid_pad)
+{
+	*prec_pad = e->flags.precis - e->cast_size;
+	*prec_pad = (*prec_pad > 0) ? *prec_pad : 0;
+	*prec_pad = (*prec_pad > 0 && e->flags.conv == 's') ? 0 : *prec_pad;
+	*wid_pad = e->flags.width - (e->cast_size + *prec_pad);
+	*wid_pad = (*wid_pad > 0) ? *wid_pad : 0;
+	*prec_pad += *wid_pad;
 }
 
 void	width_opt(t_env *e, int *pos)
@@ -48,15 +66,7 @@ void	width_opt(t_env *e, int *pos)
 	int		wid_pad;
 
 	posi = 0;
-	prec_pad = e->flags.precis - e->cast_size;
-	prec_pad = (prec_pad > 0) ? prec_pad : 0;
-	prec_pad = (prec_pad > 0 && e->flags.conv == 's') ? 0 : prec_pad;
-	wid_pad = e->flags.width - (e->cast_size + prec_pad);
-	wid_pad = (wid_pad > 0) ? wid_pad : 0;
-	//	NBR(prec_pad);
-	prec_pad += wid_pad;
-	//	NBR(wid_pad);
-	//	NBR(posi);
+	init_prec_wid(e, &prec_pad, &wid_pad);
 	if (wid_pad > 0 || prec_pad > 0)
 	{
 		while (posi < wid_pad)

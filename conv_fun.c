@@ -149,6 +149,13 @@ void	x_conv(t_env *e, int *pos, char *tmp)
 		hash_opt(e, pos);
 	((e->ucast.d) ||
 		(!e->ucast.d && !e->flags.opt.hash))? oux_cst(e, pos, tmp, 16) : 0;
+	if (!e->ucast.d && e->flags.opt.hash)
+	{
+		*tmp = '0';
+		e->cast_size = 1;
+//		*pos += 1;
+	//	STR(tmp);
+	}
 }
 
 void	capx_conv(t_env *e, int *pos, char *tmp)
@@ -164,6 +171,7 @@ void	c_conv(t_env *e, int *pos, char *tmp)
 	e->cast.c = va_arg(e->arg, unsigned int);
 	//CHAR(e->cast.c);
 	*tmp = e->cast.c;
+	e->cast_size = 1;
 	apply_opt(e, pos);
 //	*pos += 1;
 	//e->flags.opt.decal = ' ';
@@ -171,8 +179,8 @@ void	c_conv(t_env *e, int *pos, char *tmp)
 	ft_strclr(e->out_tmp);
 	ft_strclr(e->output);
 //	NBR(e->cast_size);
-	e->output_size += 1;
-//	*pos += 1;
+	e->output_size += *pos;
+	*pos = 0;
 //	CHAR(e->cast.c);
 //	exit(1);
 }

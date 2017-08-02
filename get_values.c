@@ -27,5 +27,11 @@ void	get_values(char **ptr, t_env *e, int *pos)
 	}
 	if (**ptr == '\0') //attention debug
 		exit(write(1, e->output, ft_strlen(e->output)));
+	if (**ptr == '%')
+	{
+		e->output[*pos] = '%';
+		*pos += 1;
+	//	STR(e->output);
+	}
 	get_conv(ptr, e, pos);
 }

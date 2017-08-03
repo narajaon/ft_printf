@@ -18,6 +18,14 @@ int		manage_limits(t_env *e, int *pos)
 		ft_strcpy(&e->output[*pos], "18446744073709551615");
 		return (*pos += 20);
 	}
+	if (e->cast.ll / 10 == 922337203685477580 &&
+			(e->flags.conv == 'd' || e->flags.conv == 'i'))
+	{
+		ft_strcpy(&e->output[*pos], "9223372036854775807");
+		//exit(STR("ici"));
+		e->cast_sign = 0;
+		return (*pos += 19);
+	}
 	return (0);
 }
 
@@ -49,7 +57,6 @@ void	d_conv(t_env *e, int *pos, char *tmp)
 		e->cast_size += ((e->flags.opt.sign &&
 					e->cast.d > 0 && e->cast_sign > 0) /*|| e->cast_sign < 0)*/ ? 1 : 0);
 	}
-	//e->cast_sign = 0; // need testings
 }
 
 void	capd_conv(t_env *e, int *pos, char *tmp)

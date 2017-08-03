@@ -26,7 +26,7 @@ int		is_cast(char *src)
 	int			i;
 
 	i = 0;
-	ft_bzero(str, 2);
+	ft_bzero(str, 3);
 	while (i < 2 && (*src == 'l' || *src == 'h' ||
 				*src == 'j' || *src == 'z'))
 	{

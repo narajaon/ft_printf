@@ -10,6 +10,7 @@ void	get_width(char **str, t_env *e)
 void	get_precis(char **str, t_env *e)
 {
 	*str += 1;
+	e->flags.opt.precis = 1;
 	e->flags.precis = ft_atoi(*str);
 	while (ft_isdigit(**str) && **str)
 		*str += 1;

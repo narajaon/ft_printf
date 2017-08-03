@@ -54,6 +54,7 @@ typedef struct		s_opt
 	char			sign;
 	char			decal;
 	char			fill_prec;
+	int				precis;
 }					t_opt;
 
 typedef struct		s_flags

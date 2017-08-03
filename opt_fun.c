@@ -28,9 +28,6 @@ void	apply_precis_wid(t_env *e, int *pos, int *posi, int prec_pad)
 			*posi += 1;
 		}
 		prec_pad++; //         ???
-		//			NBR(*pos);
-		//	STR(e->output);
-		//	*pos += 1;
 	}
 	while (*posi < prec_pad)
 	{
@@ -45,7 +42,6 @@ void	apply_precis_wid(t_env *e, int *pos, int *posi, int prec_pad)
 	}
 	//	CHAR(e->flags.opt.fill_prec);
 	//	NBR(*posi);
-	//	exit(1);
 }
 
 void	init_prec_wid(t_env *e, int *prec_pad, int *wid_pad)
@@ -108,7 +104,6 @@ void	width_opt(t_env *e, int *pos)
 	}
 	e->flags.width = 0;
 	e->flags.opt.min = 0;
-	e->cast_sign = 0; // need testings
 }
 
 void	sign_opt(t_env *e, int *pos)

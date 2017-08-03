@@ -10,7 +10,7 @@ void	print_output(char *conv, int *i,
 //	exit(1);
 }
 
-void	print_param(t_env *e, int *pos)
+void	print_param(t_env *e, int *pos, char **str)
 {
 	void	(*conv)(t_env *, int *, char *);
 
@@ -46,13 +46,12 @@ void	format_value(char *output, char **str, int *pos, t_env *e)
 	int		ret;
 
 	ret = stock_perc(str, e, pos);
-	//print_output(output, pos, e);
 	if (ret)
 	{
 		get_values(str, e, pos);
 		if (e->flags.conv)
-			print_param(e, pos);
-		(e->flags.conv != 'c') ? apply_opt(e, pos) : 0;
+			print_param(e, pos, str);
+		(e->flags.conv != 'c') ? apply_opt(e, pos) : 0; // ???
 		ft_strclr(e->out_tmp);
 	}
 }

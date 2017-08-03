@@ -28,9 +28,9 @@ void	apply_precis_wid(t_env *e, int *pos, int *posi, int prec_pad)
 			*posi += 1;
 		}
 		prec_pad++; //         ???
-//			NBR(*pos);
-	//	STR(e->output);
-	//	*pos += 1;
+		//			NBR(*pos);
+		//	STR(e->output);
+		//	*pos += 1;
 	}
 	while (*posi < prec_pad)
 	{
@@ -45,18 +45,33 @@ void	apply_precis_wid(t_env *e, int *pos, int *posi, int prec_pad)
 	}
 	//	CHAR(e->flags.opt.fill_prec);
 	//	NBR(*posi);
-	//	NBR(prec_pad);
 	//	exit(1);
 }
 
 void	init_prec_wid(t_env *e, int *prec_pad, int *wid_pad)
 {
-	*prec_pad = e->flags.precis - e->cast_size;
-	*prec_pad = (*prec_pad > 0) ? *prec_pad : 0;
-	*prec_pad = (*prec_pad > 0 && e->flags.conv == 's') ? 0 : *prec_pad;
-	*wid_pad = e->flags.width - (e->cast_size + *prec_pad);
-	*wid_pad = (*wid_pad > 0) ? *wid_pad : 0;
-	*prec_pad += *wid_pad;
+	int		cast;
+	
+	if (e->flags.conv == 's')
+	{
+		*prec_pad = 0;
+		cast = (e->cast_size < e->flags.precis) ?
+			e->cast_size : e->flags.precis;
+		*wid_pad = e->flags.width - cast;
+	}
+	else
+	{
+		*prec_pad = e->flags.precis - e->cast_size;
+		*prec_pad *= (*prec_pad < 0) ? 0 : 1;
+		*wid_pad = e->flags.width - (e->cast_size + *prec_pad);
+		*wid_pad = (*wid_pad > 0) ? *wid_pad : 0;
+		*prec_pad += *wid_pad;
+	}
+		//NBR(*prec_pad);
+		//NBR(*wid_pad);
+		//NBR(e->cast_size);
+		//NBR(e->flags.precis);
+		//NBR(e->flags.width);
 }
 
 void	width_opt(t_env *e, int *pos)
@@ -70,10 +85,14 @@ void	width_opt(t_env *e, int *pos)
 	if (wid_pad > 0 || prec_pad > 0)
 	{
 		while (posi < wid_pad)
+		{
 			e->output[*pos + posi++] = e->flags.opt.decal;
+		}
+		//			STR("ici");
 		apply_precis_wid(e, pos, &posi, prec_pad);
 		ft_strcpy(&e->output[*pos + posi], e->out_tmp);
 		*pos += e->cast_size + posi;
+		//		STR(e->out_tmp);
 	}
 	else
 	{
@@ -84,10 +103,12 @@ void	width_opt(t_env *e, int *pos)
 		}
 		apply_precis_wid(e, pos, &posi, prec_pad);
 		ft_strcpy(&e->output[*pos], e->out_tmp);
-		*pos += e->cast_size - ((e->cast_sign < 0) ? 1 : 0);
+		*pos += e->cast_size - ((e->cast_sign < 0) ? 1 : 0) + posi;
+		//	*pos += posi;
 	}
 	e->flags.width = 0;
 	e->flags.opt.min = 0;
+	e->cast_sign = 0; // need testings
 }
 
 void	sign_opt(t_env *e, int *pos)

@@ -39,16 +39,17 @@ void	d_conv(t_env *e, int *pos, char *tmp)
 	e->cast_sign = put_minus(e, pos, tmp);
 	if (!manage_limits(e, pos))
 	{
-		if (e->cast.d > 0)
+		if (e->cast_sign > 0 && e->cast.d)
 		{
 			if (e->flags.opt.sign == ' ' || e->flags.opt.sign == '+')
 				*tmp++ = (e->flags.opt.sign == ' ') ? ' ' : '+';
 		}
 		e->cast.d *= e->cast_sign; // keep in mind for precis
 		d_cst(e, pos, tmp);
-		e->cast_size = e->cast_size + ((e->flags.opt.sign &&
-					e->cast.d > 0) ? 1 : 0);
+		e->cast_size += ((e->flags.opt.sign &&
+					e->cast.d > 0 && e->cast_sign > 0) /*|| e->cast_sign < 0)*/ ? 1 : 0);
 	}
+	//e->cast_sign = 0; // need testings
 }
 
 void	capd_conv(t_env *e, int *pos, char *tmp)

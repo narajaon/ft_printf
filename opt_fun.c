@@ -89,6 +89,7 @@ void	width_opt(t_env *e, int *pos)
 		ft_strcpy(&e->output[*pos + posi], e->out_tmp);
 		*pos += e->cast_size + posi;
 		//		STR(e->out_tmp);
+		//STR(e->out_tmp);
 	}
 	else
 	{
@@ -120,6 +121,7 @@ void	hash_opt(t_env *e, int *pos)
 {
 	if (e->ucast.ll != 0)
 	{
+		STR("ici");
 		e->output[*pos] = '0';
 		*pos += 1;
 		if (e->flags.conv == 'x' || e->flags.conv == 'X')

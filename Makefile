@@ -26,3 +26,8 @@ fclean: clean
 re: fclean all
 
 .PHONY: clean fclean re
+
+gitall:
+	git add .
+	git commit -m "${GIT_MSG}"
+	git push

@@ -54,12 +54,14 @@ void	get_size(char **str, t_env *e, char *ptr)
 
 void	d_cst(t_env *e, int *pos, char *tmp)
 {
-	if (e->cast_id == HH && e->flags.conv == 'd')
+	if (e->cast_id == HH && (e->flags.conv == 'd' || e->flags.conv == 'i'))
+	{
 		e->cast_size = ft_itoa_str(e->cast.hh, tmp);
+	}
 	else if (e->cast_id == H && e->flags.conv == 'd')
 		e->cast_size = ft_itoa_str(e->cast.h, tmp);
 	else if (e->cast_id == L)
-		e->cast_size = ft_ltoa_str(e->cast.l, tmp);
+		e->cast_size = ft_ltoa_str(e->cast.ll, tmp);
 	else if (e->cast_id == LL)
 		e->cast_size = ft_lltoa_str(e->cast.ll, tmp);
 	else if (e->cast_id == J)
@@ -74,20 +76,26 @@ void	d_cst(t_env *e, int *pos, char *tmp)
 
 void	oux_cst(t_env *e, int *pos, char *tmp, int base)
 {
-	if (e->cast_id == HH)
+//	NBR(e->ucast.d);
+	if (e->flags.conv == 'O' || e->flags.conv == 'U')
+		e->cast_size = ft_ltoa_base(e->ucast.ll, tmp, base);
+	else if (e->cast_id == HH)
 		e->cast_size = ft_ltoa_base(e->ucast.hh, tmp, base);
 	else if (e->cast_id == H)
 		e->cast_size = ft_ltoa_base(e->ucast.h, tmp, base);
 	else if (e->cast_id == L)
-		e->cast_size = ft_ltoa_base(e->ucast.l, tmp, base);
+	{
+		e->cast_size = ft_ltoa_base(e->ucast.ll, tmp, base);
+	}
 	else if (e->cast_id == LL)
 		e->cast_size = ft_ltoa_base(e->ucast.ll, tmp, base);
 	else if (e->cast_id == J)
 		e->cast_size = ft_ltoa_base(e->ucast.j, tmp, base);
 	else if (e->cast_id == Z)
 		e->cast_size = ft_ltoa_base(e->ucast.z, tmp, base);
-	else if (e->flags.conv == 'O' || e->flags.conv == 'U')
-		e->cast_size = ft_ltoa_base(e->ucast.ll, tmp, base);
 	else
-		e->cast_size = ft_ltoa_base(e->ucast.d, tmp, base);
+	{
+		e->cast_size = ft_ltoa_base(e->ucast.ll, tmp, base);
+		//STR(tmp);
+	}
 }

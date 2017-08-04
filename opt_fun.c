@@ -48,7 +48,7 @@ void	init_prec_wid(t_env *e, int *prec_pad, int *wid_pad)
 {
 	int		cast;
 	
-	if (e->flags.conv == 's')
+	if (e->flags.conv == 's' || e->flags.conv == 'c')
 	{
 		*prec_pad = 0;
 		cast = (e->cast_size < e->flags.precis) ?
@@ -140,6 +140,14 @@ void	apply_opt(t_env *e, int *pos)
 	else
 	{
 		ft_strcpy(&e->output[*pos], e->out_tmp);
+		if (!e->cast.ll && !e->ucast.ll &&
+				(e->flags.conv == 'o' ||
+				 e->flags.conv == 'u' ||
+				 e->flags.conv == 'd'))
+		{
+			e->cast_size = 0;
+			*pos += 1;
+		}
 		*pos += e->cast_size;
 	}
 }

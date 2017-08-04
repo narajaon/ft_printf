@@ -51,7 +51,8 @@ void	format_value(char *output, char **str, int *pos, t_env *e)
 		get_values(str, e, pos);
 		if (e->flags.conv)
 			print_param(e, pos, str);
-		(e->flags.conv != 'c') ? apply_opt(e, pos) : 0; // ???
+		if (e->flags.conv != 'c')
+			apply_opt(e, pos); // ???
 		ft_strclr(e->out_tmp);
 	}
 }

@@ -29,5 +29,6 @@ re: fclean all
 
 gitall:
 	git add .
-	git commit -m "${GIT_MSG}"
+	git commit -m "${MSG}"
 	git push
+

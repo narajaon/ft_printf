@@ -21,6 +21,8 @@
 #define NBR(x) printf(#x " = |%d|\n", x)
 #define CHAR(x) printf(#x " = |%c|\n", x)
 
+#define ICI STR("ici");
+#define LA STR("la");
 typedef union		u_cast
 {
 	int				d;

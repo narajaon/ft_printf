@@ -9,7 +9,7 @@ int		ft_printf(const char *str,...)
 	fill_funtab(&e);
 	print_str((char **)&str, &e);
 	va_end(e.arg);
-#ifdef DEBUG
+#ifndef DEBUG
 	printf("\nwidth |%d|\n", e.flags.width);
 	printf("\nprecis |%d|\n", e.flags.precis);
 	printf("conv |%c|\n", e.flags.conv);
@@ -18,7 +18,7 @@ int		ft_printf(const char *str,...)
 		e.flags.opt.min, e.flags.opt.hash,
 		e.flags.opt.sign, e.flags.opt.decal);
 	NBR(e.cast_id);
-	printf("\noutput_size |%d|\n", e.output_size);
 #endif
+	printf("\noutput_size |%d|\n", e.output_size);
 	return (e.output_size);
 }

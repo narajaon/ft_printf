@@ -16,108 +16,116 @@ void	minus_opt(t_env *e, int *pos)
 	e->flags.opt.min = 0;
 }
 
-void	apply_precis_wid(t_env *e, int *pos, int *posi, int prec_pad)
+void	apply_sign(t_env *e, int *wid_pad, int *prec_pad, int *pos)
 {
 	if (e->cast_sign < 0)
 	{
 		if (e->flags.opt.decal == '0')
-		{
-			e->output[*pos] = '-';
-		}
+			e->flags.opt.fill_prec = '-';
 		else
-		{
-	//		STR("iciiiiiiiii");
-			e->output[*pos + *posi] = '-';
-			*posi += 1;
-		}
-		prec_pad++; //         ???
+			e->flags.opt.fill_prec = '-';
 	}
-	while (*posi < prec_pad)
-	{
-		e->output[*pos + *posi] = e->flags.opt.fill_prec;
-		*posi += 1;
-	}
-	if (e->flags.conv == 's')
-	{
-		e->out_tmp[e->flags.precis] = '\0';
-		e->cast_size = (e->cast_size > e->flags.precis) ?
-			e->flags.precis : e->cast_size;
-	}
-	//	CHAR(e->flags.opt.fill_prec);
-	//	NBR(*posi);
+	else if (e->cast_sign > 0 && e->flags.opt.sign)
+		e->flags.opt.fill_prec = e->flags.opt.sign;
 }
 
-void	init_prec_wid(t_env *e, int *prec_pad, int *wid_pad)
+void	init_prec_wid_str(t_env *e, int *prec_pad, int *wid_pad)
 {
 	int		cast;
-	
-	if (e->flags.conv == 's' || e->flags.conv == 'c')
-	{
-		*prec_pad = 0;
-		cast = (e->cast_size < e->flags.precis) ?
-			e->cast_size : e->flags.precis;
-		cast = (e->flags.conv == 'c') ? 1 : cast;
-		*wid_pad = e->flags.width - cast;
-	}
-	else
-	{
-		*prec_pad = e->flags.precis - e->cast_size;
-		*prec_pad *= (*prec_pad < 0) ? 0 : 1;
-		*wid_pad = e->flags.width - (e->cast_size + *prec_pad);
-		*wid_pad = (*wid_pad > 0) ? *wid_pad : 0;
-		*prec_pad += *wid_pad;
-	}
-		//NBR(*prec_pad);
-		//NBR(*wid_pad);
-		//NBR(cast);
-		//NBR(e->cast_size);
-		//NBR(e->flags.precis);
-		//NBR(e->flags.width);
+
+	cast = (e->cast_size > e->flags.precis) ?
+		e->cast_size : e->flags.precis;
+	*prec_pad = (e->cast_size < e->flags.precis || !e->flags.opt.precis) ?
+		e->cast_size : e->flags.precis;
+	*wid_pad = e->flags.width - *prec_pad;
+	*wid_pad = (*wid_pad) ? *wid_pad : 0;
 }
 
-void	width_opt(t_env *e, int *pos)
+
+void	init_prec_wid_digit(t_env *e, int *prec_pad, int *wid_pad)
+{
+	*prec_pad = (e->flags.precis > e->cast_size) ?
+		e->flags.precis - e->cast_size : 0;
+	*wid_pad = e->flags.width - (e->cast_size + *prec_pad);
+	*wid_pad = (*wid_pad > 0) ? *wid_pad : 0;
+	*prec_pad += *wid_pad;
+}
+
+void	width_opt_str(t_env *e, int *pos)
 {
 	int		posi;
 	int		prec_pad;
 	int		wid_pad;
 
 	posi = 0;
-	init_prec_wid(e, &prec_pad, &wid_pad);
+	init_prec_wid_str(e, &prec_pad, &wid_pad);
 	if (wid_pad > 0 || prec_pad > 0)
 	{
 		while (posi < wid_pad)
-		{
 			e->output[*pos + posi++] = e->flags.opt.decal;
-		}
-		//			STR("ici");
-		apply_precis_wid(e, pos, &posi, prec_pad);
-		ft_strcpy(&e->output[*pos + posi], e->out_tmp);
-		*pos += e->cast_size + posi;
-		//STR(e->out_tmp);
+		ft_strncpy(&e->output[*pos + posi], e->out_tmp, prec_pad);
+		*pos += prec_pad + posi - ((!e->cast.c) ? 1 : 0);
 	}
 	else
 	{
-		if (e->cast_sign < 0)
+		ft_strncpy(&e->output[*pos], e->out_tmp, prec_pad);
+		*pos += prec_pad - posi;
+	}
+}
+
+void	width_opt_digit(t_env *e, int *pos)
+{
+	int		posi;
+	int		prec_pad;
+	int		wid_pad;
+
+	posi = 0;
+	init_prec_wid_digit(e, &prec_pad, &wid_pad);
+	if (wid_pad > 0 || prec_pad > 0)
+	{
+		while (posi < wid_pad)
+			e->output[*pos + posi++] = e->flags.opt.decal;
+		while (posi < prec_pad)
+			e->output[*pos + posi++] = e->flags.opt.fill_prec;
+		if (e->flags.opt.decal == ' ')
 		{
-			e->output[*pos + posi] = '-';
+			e->output[*pos + posi++] = (e->cast_sign > 0) ?
+				e->flags.opt.sign : '-';
+		}
+		ft_strcpy(&e->output[*pos + posi], e->out_tmp);
+		*pos += posi + e->cast_size; // pk -1 ????
+	}
+	else
+	{
+		if (e->flags.opt.decal == ' ')
+		{
+			e->output[*pos] = (e->cast_sign > 0) ?
+				e->flags.opt.sign : '-';
 			*pos += 1;
 		}
-		apply_precis_wid(e, pos, &posi, prec_pad);
+		while (posi < prec_pad)
+			e->output[*pos + posi++] = e->flags.opt.fill_prec;
 		ft_strcpy(&e->output[*pos], e->out_tmp);
-		*pos += e->cast_size - ((e->cast_sign < 0) ? 1 : 0) + posi;
-		//	*pos += posi;
+		*pos += e->cast_size;
 	}
-	e->flags.width = 0;
-	e->flags.opt.min = 0;
 }
 
 void	sign_opt(t_env *e, int *pos)
 {
-	if (e->flags.opt.sign && e->flags.width > e->cast_size)
+	if (e->flags.opt.sign == '0')
 	{
-		e->output[*pos] = e->flags.opt.sign;
-		*pos += 1;
-		e->flags.width -= 1;
+		if (e->flags.width > e->cast_size &&
+				e->cast_sign > 0)
+		{
+			e->output[*pos] = e->flags.opt.sign;
+			*pos += 1;
+			e->flags.width -= 1;
+		}
+		else if (e->cast_sign < 0)
+		{
+			e->output[*pos] = '-';
+			*pos += 1;
+		}
 	}
 }
 
@@ -125,7 +133,6 @@ void	hash_opt(t_env *e, int *pos)
 {
 	if (e->ucast.ll != 0)
 	{
-//		STR("ici");
 		e->output[*pos] = '0';
 		*pos += 1;
 		if (e->flags.conv == 'x' || e->flags.conv == 'X')
@@ -141,15 +148,16 @@ void	apply_opt(t_env *e, int *pos)
 	sign_opt(e, pos);
 	if (e->flags.width && e->flags.opt.min)
 		minus_opt(e, pos);
-	else if ((e->flags.width && !e->flags.opt.min) || e->flags.precis)
-		width_opt(e, pos);
+	else if ((e->flags.width || e->flags.opt.precis) &&
+			(e->flags.conv == 's' || e->flags.conv == 'c'))
+		width_opt_str(e, pos);
+	else if ((e->flags.width || e->flags.opt.precis || e->cast_sign < 0))
+		width_opt_digit(e, pos);
 	else
 	{
 		ft_strcpy(&e->output[*pos], e->out_tmp);
-		if (!e->cast.ll && !e->ucast.ll &&
-				(e->flags.conv == 'o' ||
-				 e->flags.conv == 'u' ||
-				 e->flags.conv == 'd'))
+		if (!e->cast.ll && !e->ucast.ll && (e->flags.conv == 'o' ||
+					e->flags.conv == 'u' || e->flags.conv == 'd'))
 		{
 			e->cast_size = 0;
 			*pos += 1;

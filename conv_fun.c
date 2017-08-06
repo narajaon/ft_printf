@@ -95,15 +95,15 @@ void	d_conv(t_env *e, int *pos, char *tmp)
 //	NBR(e->cast_sign);
 	if (!manage_limits(e, pos, tmp))
 	{
-		if (e->cast_sign > 0 && e->cast.d)
-		{
-			if (e->flags.opt.sign == ' ' || e->flags.opt.sign == '+')
-				*tmp++ = (e->flags.opt.sign == ' ') ? ' ' : '+';
-		}
+	//	if (e->cast_sign > 0 && e->cast.d)
+	//	{
+	//		if (e->flags.opt.sign == ' ' || e->flags.opt.sign == '+')
+	//			*tmp++ = (e->flags.opt.sign == ' ') ? ' ' : '+';
+	//	}
 		e->cast.ll *= e->cast_sign; // keep in mind for precis
 		d_cst(e, pos, tmp);
-		e->cast_size += ((e->flags.opt.sign &&
-					e->cast.d > 0 && e->cast_sign > 0) /*|| e->cast_sign < 0)*/ ? 1 : 0);
+	//	e->cast_size += ((e->flags.opt.sign &&
+	//				e->cast.d > 0 && e->cast_sign > 0) /*|| e->cast_sign < 0)*/ ? 1 : 0);
 	}
 }
 
@@ -278,9 +278,9 @@ void	c_conv(t_env *e, int *pos, char *tmp)
 {
 	e->cast.c = va_arg(e->arg, unsigned int);
 	*tmp = e->cast.c;
-	e->cast_size = (e->cast.c) ? 1 : 0;
+	e->cast_size = 1;
 	apply_opt(e, pos);
-	e->output_size += (e->flags.conv == 'c' && !e->cast.c) ? 1 : 0;
+	e->output_size += ((!e->cast.c) ? 1 : 0);
 }
 
 void	capc_conv(t_env *e, int *pos, char *tmp)

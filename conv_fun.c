@@ -80,7 +80,7 @@ int		manage_limits(t_env *e, int *pos, char *tmp)
 
 int		put_minus(t_env *e, int *pos, char *tmp)
 {
-	if (e->cast.ll < 0 && e->flags.opt.decal)
+	if (e->cast.d < 0 && e->flags.opt.decal)
 	{
 		e->flags.width--;
 		return (-1);
@@ -92,6 +92,7 @@ void	d_conv(t_env *e, int *pos, char *tmp)
 {
 	e->cast.ll = va_arg(e->arg, long long int);
 	e->cast_sign = put_minus(e, pos, tmp);
+//	NBR(e->cast_sign);
 	if (!manage_limits(e, pos, tmp))
 	{
 		if (e->cast_sign > 0 && e->cast.d)
@@ -277,8 +278,9 @@ void	c_conv(t_env *e, int *pos, char *tmp)
 {
 	e->cast.c = va_arg(e->arg, unsigned int);
 	*tmp = e->cast.c;
-	e->cast_size = 1;
+	e->cast_size = (e->cast.c) ? 1 : 0;
 	apply_opt(e, pos);
+	e->output_size += (e->flags.conv == 'c' && !e->cast.c) ? 1 : 0;
 }
 
 void	capc_conv(t_env *e, int *pos, char *tmp)

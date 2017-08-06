@@ -13,9 +13,6 @@ $(NAME): $(SRC) $(HEAD)
 	@ar rc $(NAME) $(OBJ)
 	gcc main.c libftprintf.a
 
-git : clean
-	git add *
-
 clean:
 	@rm -f $(OBJ)
 
@@ -27,8 +24,9 @@ re: fclean all
 
 .PHONY: clean fclean re
 
-gitall:
-	git add .
-	git commit -m "${MSG}"
+git:
+	# tester si message existe et != ' '
+	# tester si chaque partie a fonctionne
+	@git add .
+	@git commit -m "${MSG}"
 	git push
-

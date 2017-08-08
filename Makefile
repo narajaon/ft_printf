@@ -24,7 +24,7 @@ re: fclean all
 
 .PHONY: clean fclean re
 
-git:
+git: clean
 	@git add .
 	@git commit -m "${MSG}"
 	git push

@@ -80,6 +80,7 @@ void	width_opt_digit(t_env *e, int *pos)
 	int		wid_pad;
 
 	posi = 0;
+		//NBR(*pos);
 	init_prec_wid_digit(e, &prec_pad, &wid_pad);
 	if (wid_pad > 0 || prec_pad > 0)
 	{
@@ -87,13 +88,16 @@ void	width_opt_digit(t_env *e, int *pos)
 			e->output[*pos + posi++] = e->flags.opt.decal;
 		while (posi < prec_pad)
 			e->output[*pos + posi++] = e->flags.opt.fill_prec;
-		if (e->flags.opt.decal == ' ')
+		if (e->flags.opt.fill_prec == ' ')
 		{
 			e->output[*pos + posi++] = (e->cast_sign > 0) ?
 				e->flags.opt.sign : '-';
 		}
+	//NBR(*pos);
 		ft_strcpy(&e->output[*pos + posi], e->out_tmp);
 		*pos += posi + e->cast_size; // pk -1 ????
+		//STR(e->output);
+	//	STR(e->out_tmp);
 	}
 	else
 	{
@@ -108,18 +112,20 @@ void	width_opt_digit(t_env *e, int *pos)
 		ft_strcpy(&e->output[*pos], e->out_tmp);
 		*pos += e->cast_size;
 	}
+	//NBR(wid_pad);
+	//NBR(prec_pad);
 }
 
 void	sign_opt(t_env *e, int *pos)
 {
-	if (e->flags.opt.sign == '0')
+	if (e->flags.opt.fill_prec == '0')
 	{
-		if (e->flags.width > e->cast_size &&
-				e->cast_sign > 0)
+		if (e->cast_sign > 0 && e->flags.opt.sign)
 		{
 			e->output[*pos] = e->flags.opt.sign;
 			*pos += 1;
-			e->flags.width -= 1;
+			//e->flags.width -= 1;
+//			ICI
 		}
 		else if (e->cast_sign < 0)
 		{
@@ -127,6 +133,9 @@ void	sign_opt(t_env *e, int *pos)
 			*pos += 1;
 		}
 	}
+//	NBR(e->flags.width);
+//	NBR(e->cast_size);
+//	CHAR(e->flags.opt.sign);
 }
 
 void	hash_opt(t_env *e, int *pos)

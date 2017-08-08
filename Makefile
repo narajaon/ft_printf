@@ -25,8 +25,6 @@ re: fclean all
 .PHONY: clean fclean re
 
 git:
-	# tester si message existe et != ' '
-	# tester si chaque partie a fonctionne
 	@git add .
 	@git commit -m "${MSG}"
 	git push

@@ -23,7 +23,7 @@ int		limits_1(t_env *e, int *pos, char *tmp)
 		}
 		else
 		{
-			ft_strcpy(tmp, "18446744073709551615");
+				ft_strcpy(tmp, "18446744073709551615");
 			*pos += 20;
 		}
 		return (*pos);
@@ -92,18 +92,12 @@ void	d_conv(t_env *e, int *pos, char *tmp)
 {
 	e->cast.ll = va_arg(e->arg, long long int);
 	e->cast_sign = put_minus(e, pos, tmp);
-//	NBR(e->cast_sign);
 	if (!manage_limits(e, pos, tmp))
 	{
-	//	if (e->cast_sign > 0 && e->cast.d)
-	//	{
-	//		if (e->flags.opt.sign == ' ' || e->flags.opt.sign == '+')
-	//			*tmp++ = (e->flags.opt.sign == ' ') ? ' ' : '+';
-	//	}
-		e->cast.ll *= e->cast_sign; // keep in mind for precis
+		if (e->cast.ll == 0 && e->flags.opt.precis && !e->flags.precis)
+			return ;
+		e->cast.ll *= e->cast_sign;
 		d_cst(e, pos, tmp);
-	//	e->cast_size += ((e->flags.opt.sign &&
-	//				e->cast.d > 0 && e->cast_sign > 0) /*|| e->cast_sign < 0)*/ ? 1 : 0);
 	}
 }
 
@@ -124,7 +118,6 @@ void	s_conv(t_env *e, int *pos, char *tmp)
 	char	*arg;
 
 	arg = va_arg(e->arg, char *);
-	e->flags.opt.fill_prec = ' ';
 	if (!arg)
 	{
 		ft_strcpy(&e->output[*pos], "(null)");
@@ -150,19 +143,17 @@ void	caps_conv(t_env *e, int *pos, char *tmp)
 	arg = va_arg(e->arg, wchar_t *);
 	if (!arg)
 	{
-		write(1,"(null)", 6);
-		e->output_size += 6;
-		*pos = 0;
+		ft_strcpy(&e->output[*pos], "(null)");
+		*pos += 6;
 	}
 }
 
 void	p_conv(t_env *e, int *pos, char *tmp)
 {
-	*tmp++ = '0';
-	*tmp++ = 'x';
 	e->cast.ll = va_arg(e->arg, long long);
-	e->cast_size = 2;
-	e->cast_size += ft_ltoa_base(e->cast.l, tmp, 16);
+	if (e->cast.ll == 0 && e->flags.opt.precis && !e->flags.precis)
+		return ;
+	e->cast_size = ft_ltoa_base(e->cast.l, tmp, 16);
 }
 
 void	o_conv(t_env *e, int *pos, char *tmp)
@@ -173,6 +164,9 @@ void	o_conv(t_env *e, int *pos, char *tmp)
 	e->ucast.ll = va_arg(e->arg, long long int);
 	if (e->flags.opt.hash)
 		hash_opt(e, pos);
+	if (e->ucast.ll == 0 && e->flags.opt.precis &&
+			!e->flags.precis && !e->flags.opt.hash)
+		return ;
 	if (!manage_limits(e, pos, tmp))
 		oux_cst(e, pos, tmp, 8);
 	else
@@ -185,6 +179,9 @@ void	o_conv(t_env *e, int *pos, char *tmp)
 void	capo_conv(t_env *e, int *pos, char *tmp)
 {
 	e->ucast.ll = va_arg(e->arg, long long int);
+	if (e->ucast.ll == 0 && e->flags.opt.precis &&
+			!e->flags.precis && !e->flags.opt.hash)
+		return ;
 	if (!manage_limits(e, pos, tmp))
 	{
 		if (e->flags.opt.hash)
@@ -199,6 +196,8 @@ void	u_conv(t_env *e, int *pos, char *tmp)
 
 	pos_tmp = *pos;
 	e->ucast.ll = va_arg(e->arg, unsigned long long);
+	if (e->ucast.ll == 0 && e->flags.opt.precis && !e->flags.precis)
+		return ;
 	if (!manage_limits(e, pos, tmp))
 		oux_cst(e, pos, tmp, 10);
 	else
@@ -219,7 +218,6 @@ void	capu_conv(t_env *e, int *pos, char *tmp) //meme chose
 		oux_cst(e, pos, tmp, 10);
 	else
 	{
-		//		STR(tmp);
 		ft_strcpy(&e->output[pos_tmp], tmp);
 		ft_strclr(tmp);
 	}
@@ -231,6 +229,8 @@ void	x_conv(t_env *e, int *pos, char *tmp)
 
 	pos_tmp = *pos;
 	e->ucast.ll = va_arg(e->arg, unsigned long long);
+	if (e->ucast.ll == 0 && e->flags.opt.precis && !e->flags.precis)
+		return ;
 	if (e->flags.opt.hash)
 		hash_opt(e, pos);
 	if (!manage_limits(e, pos, tmp))
@@ -257,6 +257,8 @@ void	capx_conv(t_env *e, int *pos, char *tmp)
 
 	pos_tmp = *pos;
 	e->ucast.d = va_arg(e->arg, long long int);
+	if (e->ucast.ll == 0 && e->flags.opt.precis && !e->flags.precis)
+		return ;
 	if (e->flags.opt.hash)
 		hash_opt(e, pos);
 	if (!manage_limits(e, pos, tmp))
@@ -274,13 +276,35 @@ void	capx_conv(t_env *e, int *pos, char *tmp)
 	}
 }
 
+void	print_null(t_env *e, int *pos, char *tmp)
+{
+	e->output_size += write(1, e->output, ft_strlen(e->output));
+	ft_bzero(e->output, *pos);
+	if (e->flags.width && !e->flags.opt.min)
+	{
+		while (--e->flags.width)
+			e->output_size += write(1, " ", 1);
+	}
+	e->output_size += write(1, "\0", 1);
+	*pos -= (*pos) ? 1 : 0;
+	if (e->flags.width && e->flags.opt.min)
+	{
+		while (--e->flags.width)
+			e->output_size += write(1, &e->flags.opt.fill_prec, 1);
+	}
+}
+
 void	c_conv(t_env *e, int *pos, char *tmp)
 {
 	e->cast.c = va_arg(e->arg, unsigned int);
-	*tmp = e->cast.c;
 	e->cast_size = 1;
-	apply_opt(e, pos);
-	e->output_size += ((!e->cast.c) ? 1 : 0);
+	if (e->cast.c == '\0')
+		print_null(e, pos, tmp);
+	else
+	{
+		*tmp = e->cast.c;
+		apply_opt(e, pos);
+	}
 }
 
 void	capc_conv(t_env *e, int *pos, char *tmp)

@@ -4,7 +4,9 @@ int		ft_printf(const char *str,...)
 {
 	t_env	e;
 
-	ft_bzero(&e, sizeof(e));
+	init_params(&e);
+	e.output_size = 0;
+	ft_bzero(e.out_tmp, sizeof(e.out_tmp));
 	va_start(e.arg, str);
 	fill_funtab(&e);
 	print_str((char **)&str, &e);
@@ -19,6 +21,6 @@ int		ft_printf(const char *str,...)
 		e.flags.opt.sign, e.flags.opt.decal);
 	NBR(e.cast_id);
 #endif
-	printf("\noutput_size |%d|\n", e.output_size);
+//	printf("\noutput_size |%d|\n", e.output_size);
 	return (e.output_size);
 }

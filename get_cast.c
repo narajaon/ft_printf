@@ -55,9 +55,7 @@ void	get_size(char **str, t_env *e, char *ptr)
 void	d_cst(t_env *e, int *pos, char *tmp)
 {
 	if (e->cast_id == HH && (e->flags.conv == 'd' || e->flags.conv == 'i'))
-	{
 		e->cast_size = ft_itoa_str(e->cast.hh, tmp);
-	}
 	else if (e->cast_id == H && e->flags.conv == 'd')
 		e->cast_size = ft_itoa_str(e->cast.h, tmp);
 	else if (e->cast_id == L)
@@ -76,7 +74,6 @@ void	d_cst(t_env *e, int *pos, char *tmp)
 
 void	oux_cst(t_env *e, int *pos, char *tmp, int base)
 {
-//	NBR(e->ucast.d);
 	if (e->flags.conv == 'O' || e->flags.conv == 'U')
 		e->cast_size = ft_ltoa_base(e->ucast.ll, tmp, base);
 	else if (e->cast_id == HH)
@@ -94,8 +91,5 @@ void	oux_cst(t_env *e, int *pos, char *tmp, int base)
 	else if (e->cast_id == Z)
 		e->cast_size = ft_ltoa_base(e->ucast.z, tmp, base);
 	else
-	{
 		e->cast_size = ft_ltoa_base(e->ucast.ll, tmp, base);
-		//STR(tmp);
-	}
 }

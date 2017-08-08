@@ -1,5 +1,15 @@
 #include "ft_printf.h"
 
+void	init_params(t_env *e)
+{
+	e->cast.ll = 0;
+	e->ucast.ll = 0;
+	ft_bzero(&e->flags, sizeof(e->flags));
+	e->cast_size = 0;
+	e->cast_id = 0;
+	e->cast_sign = 0;
+}
+
 void	print_output(char *conv, int *i,
 		t_env *e)
 {
@@ -55,6 +65,7 @@ void	format_value(char *output, char **str, int *pos, t_env *e)
 			apply_opt(e, pos); // ???
 		ft_strclr(e->out_tmp);
 	}
+	init_params(e);
 }
 
 void	print_str(char **str, t_env *e)
@@ -77,5 +88,6 @@ void	print_str(char **str, t_env *e)
 		e->output[i++] = **str;
 		*str += 1;
 	}
+	e->output[i] = '\0';
 	print_output(ptr, &i, e);
 }

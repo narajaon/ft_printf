@@ -8,6 +8,7 @@ void	init_params(t_env *e)
 	e->cast_size = 0;
 	e->cast_id = 0;
 	e->cast_sign = 0;
+	e->is_limit = 0;
 }
 
 void	print_output(char *conv, int *i,

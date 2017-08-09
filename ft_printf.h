@@ -79,6 +79,7 @@ typedef struct		s_env
 	int				output_size; //strings
 	int				cast_size; //numbers
 	int				cast_id;
+	int				is_limit;
 	int				cast_sign;
 }					t_env;
 

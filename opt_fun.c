@@ -79,22 +79,26 @@ void	width_opt_str(t_env *e, int *pos)
 
 void	put_sign(t_env *e, int *pos, int *posi)
 {
-	if (e->flags.opt.sign && e->cast_sign > 0 && e->flags.opt.decal == ' ')
+	if (!e->is_limit)
 	{
-		e->output[*pos + *posi] = e->flags.opt.sign;
-		*pos += 1;
-	}
-	else if (e->cast_sign < 0 && e->flags.opt.decal == ' ')
-	{
-		e->output[*pos + *posi] = '-';
-		*pos += 1;
-	}
-	else if (e->flags.conv == 'p')
-	{
-		e->output[*pos + *posi] = '0';
-		*pos += 1;
-		e->output[*pos + *posi] = 'x';
-		*pos += 1;
+		if (e->flags.opt.sign && e->cast_sign > 0 &&
+				e->flags.opt.decal == ' ')
+		{
+			e->output[*pos + *posi] = e->flags.opt.sign;
+			*pos += 1;
+		}
+		else if (e->cast_sign < 0 && e->flags.opt.decal == ' ')
+		{
+			e->output[*pos + *posi] = '-';
+			*pos += 1;
+		}
+		else if (e->flags.conv == 'p')
+		{
+			e->output[*pos + *posi] = '0';
+			*pos += 1;
+			e->output[*pos + *posi] = 'x';
+			*pos += 1;
+		}
 	}
 }
 
@@ -142,9 +146,9 @@ void	hash_opt(t_env *e, int *pos)
 void	apply_opt(t_env *e, int *pos)
 {
 	if (e->flags.opt.decal == '0' &&
-			(e->cast_sign < 0 || e->flags.opt.sign))
+			(e->cast_sign < 0 || e->flags.opt.sign) && !e->is_limit)
 	{
-			e->output[*pos] = (e->cast_sign < 0) ? '-' : e->flags.opt.sign;
+		e->output[*pos] = (e->cast_sign < 0) ? '-' : e->flags.opt.sign;
 		*pos += 1;
 	}
 	if (e->flags.width && e->flags.opt.min)

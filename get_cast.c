@@ -8,7 +8,7 @@ int		cast_id(char *str)
 	if (!ft_strcmp(str, "hh"))
 		id = HH;
 	else if (!ft_strcmp(str, "z"))
-		id = Z;
+		id = L;
 	else if (!ft_strcmp(str, "h"))
 		id = H;
 	else if (!ft_strcmp(str, "l"))
@@ -16,7 +16,7 @@ int		cast_id(char *str)
 	else if (!ft_strcmp(str, "ll"))
 		id = LL;
 	else if (!ft_strcmp(str, "j"))
-		id = J;
+		id = L;
 	return (id);
 }
 

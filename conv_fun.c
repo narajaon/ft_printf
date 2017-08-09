@@ -1,80 +1,46 @@
 #include "ft_printf.h"
 
-int		limits_1(t_env *e, int *pos, char *tmp)
+int		d_limits(t_env *e, int *pos, char *tmp)
 {
-	if (e->cast.ll + 1 == -9223372036854775807)
+	if (e->cast_id == H && e->cast.d == SHRT_MIN)
 	{
-		ft_strcpy(&e->output[*pos], "-9223372036854775808");
-		e->cast_sign = 0;
-		return (*pos += 20);
+		e->cast.l *= -1;
+		return (e->is_limit = 1);
 	}
-	if (e->ucast.ll / 10 == 1844674407370955161)
+	if (e->cast_id == HH && e->cast.d <= CHAR_MIN)
 	{
-		if (e->flags.conv == 'o' || e->flags.conv == 'O')
-		{
-			ft_strcpy(tmp, "1777777777777777777777");
-			*pos += 22;
-		}
-		else if (e->flags.conv == 'x' || e->flags.conv == 'X')
-		{
-			(e->flags.conv == 'x') ? ft_strcpy(tmp, "ffffffffffffffff") : 0;
-			(e->flags.conv == 'X') ? ft_strcpy(tmp, "FFFFFFFFFFFFFFFF") : 0;
-			*pos += 16;
-		}
-		else
-		{
-				ft_strcpy(tmp, "18446744073709551615");
-			*pos += 20;
-		}
-		return (*pos);
+		e->cast.l *= -1;
+		return (e->is_limit = 1);
+	}
+	if ((e->cast.l >= LONG_MAX || e->cast.l <= LONG_MIN))
+	{
+		e->cast.l *= -1;
+		return (e->is_limit = 1);
+	}
+	if ((e->cast.d > INT_MAX || e->cast.d <= INT_MIN))
+	{
+		e->cast.l *= -1;
+		return (e->is_limit = 1);
 	}
 	return (0);
 }
 
-int		limits_2(t_env *e, int *pos, char *tmp)
+int		oux_limits(t_env *e, int *pos, char *tmp)
 {
-	if (e->ucast.ll - 1 == 4294967294 &&
-			(e->flags.conv == 'x' || e->flags.conv == 'X'))
+	if (e->cast_id == H && e->ucast.d == SHRT_MIN)
+		return (e->is_limit = 1);
+	if (e->cast_id == HH && e->ucast.d <= CHAR_MIN)
+		return (e->is_limit = 1);
+	if ((e->ucast.l > UINT_MAX))
 	{
-		if (e->cast_id == LL || e->cast_id == L ||
-				e->cast_id == J || e->cast_id == Z)
-		{
-			(e->flags.conv == 'x') ? ft_strcpy(tmp, "ffffffffffffffff") : 0;
-			(e->flags.conv == 'X') ? ft_strcpy(tmp, "FFFFFFFFFFFFFFFF") : 0;
-			*pos += 16;
-		}
-		else
-		{
-			(e->flags.conv == 'x') ? ft_strcpy(tmp, "ffffffff") : 0;
-			(e->flags.conv == 'X') ? ft_strcpy(tmp, "FFFFFFFF") : 0;
-			*pos += 8;
-		}
-		return (*pos);
-	}
-	return (0);
-}
-
-int		limits_3(t_env *e, int *pos, char *tmp)
-{
-	if (e->ucast.ll / 10 == 1844674407370955161)
-	{
-		return (*pos += 20);
-	}
-	if (e->cast.ll / 10 == 922337203685477580 &&
-			(e->flags.conv == 'd' || e->flags.conv == 'i'))
-	{
-		ft_strcpy(&e->output[*pos], "9223372036854775807");
-		e->cast_sign = 0;
-		return (*pos += 19);
+		e->ucast.l *= -1;
+		return (e->is_limit = 1);
 	}
 	return (0);
 }
 
 int		manage_limits(t_env *e, int *pos, char *tmp)
 {
-	if (limits_1(e, pos, tmp) || limits_2(e, pos, tmp) ||
-			limits_3(e, pos, tmp))
-		return (1);
 	return (0);
 }
 
@@ -92,25 +58,35 @@ void	d_conv(t_env *e, int *pos, char *tmp)
 {
 	e->cast.ll = va_arg(e->arg, long long int);
 	e->cast_sign = put_minus(e, pos, tmp);
-	if (!manage_limits(e, pos, tmp))
+	d_limits(e, pos, tmp);
+	if ((e->cast.ll == LLONG_MAX || e->cast.ll == LLONG_MIN))
 	{
-		if (e->cast.ll == 0 && e->flags.opt.precis && !e->flags.precis)
-			return ;
-		e->cast.ll *= e->cast_sign;
-		d_cst(e, pos, tmp);
+		if (e->cast.ll == LLONG_MIN)
+			ft_strcpy(&e->output[*pos], "-9223372036854775808");
+		else
+			ft_strcpy(&e->output[*pos], "9223372036854775807");
+		*pos += (e->cast.ll == LLONG_MIN) ? 20 : 19;
+		return ;
 	}
+	if (e->cast.ll == 0 && e->flags.opt.precis && !e->flags.precis)
+		return ;
+	e->cast.ll *= e->cast_sign;
+	d_cst(e, pos, tmp);
 }
 
 void	capd_conv(t_env *e, int *pos, char *tmp)
 {
 	e->cast.ll = va_arg(e->arg, long long int);
-	if (!manage_limits(e, pos, tmp))
+	if (e->cast.ll == LONG_MIN)
 	{
-		if (e->flags.opt.sign == ' ' || e->flags.opt.sign == '+')
-			*tmp++ = (e->flags.opt.sign == ' ') ? ' ' : '+';
-		d_cst(e, pos, tmp);
-		e->cast_size = e->cast_size + ((e->flags.opt.sign) ? 1 : 0);
+		ft_strcpy(&e->output[*pos], "-9223372036854775808");
+		*pos += 20;
+		return ;
 	}
+	if (e->flags.opt.sign == ' ' || e->flags.opt.sign == '+')
+		*tmp++ = (e->flags.opt.sign == ' ') ? ' ' : '+';
+	d_cst(e, pos, tmp);
+	e->cast_size = e->cast_size + ((e->flags.opt.sign) ? 1 : 0);
 }
 
 void	s_conv(t_env *e, int *pos, char *tmp)
@@ -162,6 +138,13 @@ void	o_conv(t_env *e, int *pos, char *tmp)
 
 	pos_tmp = *pos;
 	e->ucast.ll = va_arg(e->arg, long long int);
+	if (e->ucast.ll == ULONG_MAX)
+	{
+		ft_strcpy(&e->output[*pos], "1777777777777777777777");
+		*pos += 22;
+		return ;
+	}
+	oux_limits(e, pos, tmp);
 	if (e->flags.opt.hash)
 		hash_opt(e, pos);
 	if (e->ucast.ll == 0 && e->flags.opt.precis &&
@@ -196,16 +179,16 @@ void	u_conv(t_env *e, int *pos, char *tmp)
 
 	pos_tmp = *pos;
 	e->ucast.ll = va_arg(e->arg, unsigned long long);
+	if (e->ucast.ll == ULONG_MAX)
+	{
+		ft_strcpy(&e->output[*pos], "18446744073709551615");
+		*pos += 20;
+		return ;
+	}
+	oux_limits(e, pos, tmp);
 	if (e->ucast.ll == 0 && e->flags.opt.precis && !e->flags.precis)
 		return ;
-	if (!manage_limits(e, pos, tmp))
-		oux_cst(e, pos, tmp, 10);
-	else
-	{
-		//		STR(tmp);
-		ft_strcpy(&e->output[pos_tmp], tmp);
-		ft_strclr(tmp);
-	}
+	oux_cst(e, pos, tmp, 10);
 }
 
 void	capu_conv(t_env *e, int *pos, char *tmp) //meme chose
@@ -214,13 +197,13 @@ void	capu_conv(t_env *e, int *pos, char *tmp) //meme chose
 
 	pos_tmp = *pos;
 	e->ucast.ll = va_arg(e->arg, unsigned long long);
-	if (!manage_limits(e, pos, tmp))
-		oux_cst(e, pos, tmp, 10);
-	else
+	if (e->ucast.ll == ULONG_MAX)
 	{
-		ft_strcpy(&e->output[pos_tmp], tmp);
-		ft_strclr(tmp);
+		ft_strcpy(&e->output[*pos], "18446744073709551615");
+		*pos += 20;
+		return ;
 	}
+	oux_cst(e, pos, tmp, 10);
 }
 
 void	x_conv(t_env *e, int *pos, char *tmp)
@@ -229,25 +212,22 @@ void	x_conv(t_env *e, int *pos, char *tmp)
 
 	pos_tmp = *pos;
 	e->ucast.ll = va_arg(e->arg, unsigned long long);
+	if (e->ucast.ll == ULONG_MAX)
+	{
+		ft_strcpy(&e->output[*pos], "ffffffffffffffff");
+		*pos += 16;
+		return ;
+	}
 	if (e->ucast.ll == 0 && e->flags.opt.precis && !e->flags.precis)
 		return ;
 	if (e->flags.opt.hash)
 		hash_opt(e, pos);
-	if (!manage_limits(e, pos, tmp))
+	((e->ucast.d) || (!e->ucast.d && !e->flags.opt.hash)) ?
+		oux_cst(e, pos, tmp, 16) : 0;
+	if (!e->ucast.d && e->flags.opt.hash)
 	{
-		((e->ucast.d) ||
-		 (!e->ucast.d && !e->flags.opt.hash))? oux_cst(e, pos, tmp, 16) : 0;
-		if (!e->ucast.d && e->flags.opt.hash)
-		{
-			*tmp = '0';
-			e->cast_size = 1;
-		}
-	}
-	else
-	{
-		ft_strcpy(&e->output[pos_tmp], tmp);
-		e->cast_size -= 1;
-		ft_strclr(tmp);
+		*tmp = '0';
+		e->cast_size = 1;
 	}
 }
 
@@ -256,24 +236,21 @@ void	capx_conv(t_env *e, int *pos, char *tmp)
 	int		pos_tmp;
 
 	pos_tmp = *pos;
-	e->ucast.d = va_arg(e->arg, long long int);
+	e->ucast.ll = va_arg(e->arg, long long int);
+	if (e->ucast.ll == ULONG_MAX)
+	{
+		ft_strcpy(&e->output[*pos], "FFFFFFFFFFFFFFFF");
+		*pos += 16;
+		return ;
+	}
 	if (e->ucast.ll == 0 && e->flags.opt.precis && !e->flags.precis)
 		return ;
 	if (e->flags.opt.hash)
 		hash_opt(e, pos);
-	if (!manage_limits(e, pos, tmp))
-	{
-		if (e->cast_id == HH)
-			e->cast_size = ft_cap_ltoa_base(e->ucast.hh, tmp, 16);
-		else
-			e->cast_size = ft_cap_ltoa_base(e->ucast.ll, tmp, 16);
-	}
+	if (e->cast_id == HH)
+		e->cast_size = ft_cap_ltoa_base(e->ucast.hh, tmp, 16);
 	else
-	{
-		ft_strcpy(&e->output[pos_tmp], tmp);
-		e->cast_size -= 1;
-		ft_strclr(tmp);
-	}
+		e->cast_size = ft_cap_ltoa_base(e->ucast.ll, tmp, 16);
 }
 
 void	print_null(t_env *e, int *pos, char *tmp)

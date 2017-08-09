@@ -7,6 +7,14 @@ void	minus_opt(t_env *e, int *pos)
 
 	prec_pad = (e->cast_size < e->flags.precis) ?
 		e->flags.precis - e->cast_size : 0;
+	if (e->flags.conv == 'p')
+	{
+		e->output[*pos] = '0';
+		*pos += 1;
+		e->output[*pos] = 'x';
+		*pos += 1;
+		e->flags.width -= 2;
+	}
 	i = e->flags.width - (prec_pad + e->cast_size);
 	if ((e->cast_sign > 0 && e->flags.opt.sign) || e->cast_sign < 0)
 	{
@@ -153,8 +161,8 @@ void	apply_opt(t_env *e, int *pos)
 	}
 	if (e->flags.width && e->flags.opt.min)
 		minus_opt(e, pos);
-	else if (e->flags.conv == 's' || e->flags.conv == 'c')
-		width_opt_str(e, pos);
-	else
+	else if ((e->flags.conv != 's' && e->flags.conv != 'c') && e->flags.conv)
 		width_opt_digit(e, pos);
+	else
+		width_opt_str(e, pos);
 }

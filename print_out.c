@@ -40,9 +40,8 @@ int		stock_perc(char **str, t_env *e, int *pos)
 	ptr = *str;
 	while (*ptr == '%')
 	{
-		e->out_tmp[i] = *ptr;
+		e->out_tmp[i++] = *ptr;
 		ptr++;
-		i++;
 	}
 	*pos += ft_strncpy_ret(&e->output[*pos], e->out_tmp, i / 2);
 	*str += i;

@@ -27,15 +27,13 @@ int		get_values(char **ptr, t_env *e, int *pos)
 		ft_isdigit(**ptr) ? get_width(ptr, e) : 0;
 	}
 	if (**ptr == '\0') //attention debug
-	{
 		exit(write(1, e->output, ft_strlen(e->output)));
-		return (0);
-	}
-	if (**ptr == '%')
+	if (!is_conv(**ptr))
 	{
-		e->output[*pos] = '%';
-		*pos += 1;
-		return (0);
+		e->out_tmp[0] = **ptr;
+		e->cast_size = 1;
+		*ptr += 1;
+		return (1);
 	}
 	get_conv(ptr, e, pos);
 	return (1);

@@ -35,6 +35,7 @@ typedef union		u_cast
 	size_t			z;
 	intmax_t		j;
 	wint_t			lc;
+	char			uni[4];
 }					t_cast;
 
 typedef union		u_ucast

@@ -272,11 +272,8 @@ void	c_conv(t_env *e, int *pos, char *tmp)
 
 void	capc_conv(t_env *e, int *pos, char *tmp)
 {
-	/*
-	   e->cast.c = va_arg(e->arg, wint_t);
-	   tmp[*pos] = e->cast.lc;
-	   e->cast_size += 1;
-	   */
+	e->cast.d = va_arg(e->arg, wint_t);
+	ft_putchar_uni(e->cast.uni);
 }
 
 void	fill_funtab(t_env *e)

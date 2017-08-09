@@ -39,11 +39,6 @@ int		oux_limits(t_env *e, int *pos, char *tmp)
 	return (0);
 }
 
-int		manage_limits(t_env *e, int *pos, char *tmp)
-{
-	return (0);
-}
-
 int		put_minus(t_env *e, int *pos, char *tmp)
 {
 	if (e->cast.d < 0 && e->flags.opt.decal)
@@ -150,13 +145,7 @@ void	o_conv(t_env *e, int *pos, char *tmp)
 	if (e->ucast.ll == 0 && e->flags.opt.precis &&
 			!e->flags.precis && !e->flags.opt.hash)
 		return ;
-	if (!manage_limits(e, pos, tmp))
-		oux_cst(e, pos, tmp, 8);
-	else
-	{
-		ft_strcpy(&e->output[pos_tmp], tmp);
-		ft_strclr(tmp);
-	}
+	oux_cst(e, pos, tmp, 8);
 }
 
 void	capo_conv(t_env *e, int *pos, char *tmp)
@@ -165,12 +154,9 @@ void	capo_conv(t_env *e, int *pos, char *tmp)
 	if (e->ucast.ll == 0 && e->flags.opt.precis &&
 			!e->flags.precis && !e->flags.opt.hash)
 		return ;
-	if (!manage_limits(e, pos, tmp))
-	{
 		if (e->flags.opt.hash)
 			hash_opt(e, pos);
 		oux_cst(e, pos, tmp, 8);
-	}
 }
 
 void	u_conv(t_env *e, int *pos, char *tmp)

@@ -44,16 +44,15 @@ void	init_prec_wid_digit(t_env *e, int *prec_pad, int *wid_pad)
 {
 	*prec_pad = (e->flags.precis > e->cast_size) ?
 		e->flags.precis - e->cast_size : 0;
+	if (e->flags.conv == 'p')
+		*prec_pad += 2;
 	*wid_pad = e->flags.width - (e->cast_size + *prec_pad);
 	if (e->flags.opt.sign && e->cast_sign > 0)
 		*wid_pad -= 1;
 	*wid_pad = (*wid_pad > 0) ? *wid_pad : 0;
-	*prec_pad += *wid_pad;
 	if (e->flags.conv == 'p')
-	{
-		*wid_pad -= 2;
 		*prec_pad -= 2;
-	}
+	*prec_pad += *wid_pad;
 }
 
 void	width_opt_str(t_env *e, int *pos)
@@ -122,6 +121,8 @@ void	width_opt_digit(t_env *e, int *pos)
 		ft_strcpy(&e->output[*pos + posi], e->out_tmp);
 		*pos += e->cast_size;
 	}
+	//NBR(prec_pad);
+	//NBR(wid_pad);
 }
 
 void	hash_opt(t_env *e, int *pos)

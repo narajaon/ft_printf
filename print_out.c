@@ -58,12 +58,14 @@ void	format_value(char *output, char **str, int *pos, t_env *e)
 	ret = stock_perc(str, e, pos);
 	if (ret)
 	{
-		get_values(str, e, pos);
-		if (e->flags.conv)
-			print_param(e, pos, str);
-		if (e->flags.conv != 'c')
-			apply_opt(e, pos); // ???
-		ft_strclr(e->out_tmp);
+		if (get_values(str, e, pos))
+		{
+			if (e->flags.conv)
+				print_param(e, pos, str);
+			if (e->flags.conv != 'c')
+				apply_opt(e, pos); // ???
+			ft_strclr(e->out_tmp);
+		}
 	}
 	init_params(e);
 }

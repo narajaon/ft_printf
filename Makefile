@@ -11,7 +11,7 @@ all: $(NAME) clean
 $(NAME): $(SRC) $(HEAD)
 	@$(CC) $(FLAG) $(SRC)
 	@ar rc $(NAME) $(OBJ)
-	gcc main.c libftprintf.a
+	gcc -D${DBG} main.c libftprintf.a
 
 clean:
 	@rm -f $(OBJ)

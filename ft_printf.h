@@ -1,6 +1,5 @@
 #ifndef FT_PRINTF
 #define FT_PRINTF
-#define DEBUG
 #define BUFF_SIZE 256
 
 #include "libft/libft.h"
@@ -90,7 +89,7 @@ char	is_opt(char *str);
 void	get_size(char **str, t_env *e, char *ptr);
 void	get_opt(char **str, t_env *e);
 void	get_conv(char **str, t_env *e, int *pos);
-void	get_values(char **ptr, t_env *e, int *pos);
+int		get_values(char **ptr, t_env *e, int *pos);
 int		get_value_size(long long int value);
 
 void	init_params(t_env *e);

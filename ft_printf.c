@@ -11,7 +11,7 @@ int		ft_printf(const char *str,...)
 	fill_funtab(&e);
 	print_str((char **)&str, &e);
 	va_end(e.arg);
-#ifndef DEBUG
+#ifdef DEBUG
 	printf("\nwidth |%d|\n", e.flags.width);
 	printf("\nprecis |%d|\n", e.flags.precis);
 	printf("conv |%c|\n", e.flags.conv);

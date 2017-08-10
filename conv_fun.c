@@ -272,7 +272,7 @@ void	c_conv(t_env *e, int *pos, char *tmp)
 
 void	capc_conv(t_env *e, int *pos, char *tmp)
 {
-	e->cast.d = va_arg(e->arg, wint_t);
+	e->ucast.d = va_arg(e->arg, unsigned int);
 	ft_putchar_uni(e->cast.uni);
 }
 

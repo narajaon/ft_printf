@@ -1,73 +1,81 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_putchar_uni.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: narajaon <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/09 17:13:03 by narajaon          #+#    #+#             */
-/*   Updated: 2017/08/09 20:04:46 by narajaon         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 //#include "../ft_printf.h"
 
+#include "libft.h"
 #include <unistd.h>
 
 typedef union		u_uni
 {
 	unsigned int	dec;
-	unsigned char	oct[4];
+	unsigned char	oct_4[4];
+	unsigned char	oct_3[3];
+	unsigned char	oct_2[2];
+	unsigned char	oct_1;
 }					t_uni;
 
 #include <stdio.h>
 #include <locale.h>
 
-void	ft_putchar_uni(unsigned int uni)
-{
-	unsigned char	id;
-	unsigned char	id_2;
-	unsigned char	id_3;
-	unsigned char	id_4;
-	int				count;
-	t_uni			code;
+// 1 01111 100001 110011
 
-	code.dec = uni;
-	id = code.oct[0] >> 7;
-	id_2 = code.oct[0] >> 6;
-	id_3 = code.oct[0] >> 5;
-	id_4 = code.oct[0] >> 4;
-	count = 0;
-	if (id == 0)
-		write(1, &code.oct[0], 1);
-	else if (id_4 == 8)
+int		ft_putchar_uni(unsigned int uni)
+{
+	t_uni			u8;
+	unsigned char	c;
+	int				ret;
+	char			bin[300];
+
+	u8.dec = uni;
+	ret = 0;
+	ft_bzero(bin, 300);
+	if (uni > 0xFFFF)
 	{
-		while (count < 4)
-			write(1, &code.oct[count++], 1);
-		printf("ici");
+		c = (uni >> 16) | 0xF0;
+		u8.oct_3[0] = c;
+		/*
+		c = ((uni >> 12) & (~0x3C0)) | 0x80;
+		u8.oct_3[1] = c;
+		c = (uni & (~0xFFC0)) | 0x80;
+		u8.oct_3[2] = c;
+		*/
+		//ret = write(1, u8.oct_3, 2);
+
+		ft_itoa_base(c, bin, 2);
+		printf("%s\n", bin);
+		//printf("uni %d\n", uni);
+		printf("\nid : 1\n");
 	}
-	else if (id_3 == 4)
+	else if (uni > 0x7FF)
 	{
-		while (count < 3)
-			write(1, &code.oct[count++], 1);
-		printf("la");
+		c = (uni >> 12) | 0xE0;
+		u8.oct_3[0] = c;
+		c = ((uni >> 6) & (~0x3C0)) | 0x80;
+		u8.oct_3[1] = c;
+		c = (uni & (~0xFFC0)) | 0x80;
+		u8.oct_3[2] = c;
+		ret = write(1, u8.oct_3, 2);
+		printf("\nid : 2\n");
 	}
-	else if (id_2 == 2)
+	else if (uni > 0x7F)
 	{
-		while (count < 2)
-			write(1, &code.oct[count++], 1);
-		printf("labas");
+		c = (uni >> 6) | 0xC4;
+		u8.oct_2[0] = c;
+		c = (uni & (~0xFF00)) | 0x80;
+		u8.oct_2[1] = c;
+		ret = write(1, u8.oct_2, 3);
+		printf("\nid : 3\n");
 	}
-	printf("\n>>7 = %d\n", id);
-	printf(">>6 = %d\n", id_2);
-	printf(">>5 = %d\n", id_3);
-	printf(">>4 = %d\n", id_4);
+	else
+		ret = write(1, &u8.oct_1, 1);
+	return (ret);
 }
+
+#define VALUE 0x2F873
 
 int		main()
 {
 	setlocale(LC_ALL, "");
-	ft_putchar_uni(L'該');
+	ft_putchar_uni(VALUE);
+	printf("\n%C\n", VALUE);
 	//printf("%d\n", 0xF0 >> 3); //30
 	//printf("%d\n", 0xE0 >> 4); //14
 	//printf("%d\n", 0xC0 >> 5); //6

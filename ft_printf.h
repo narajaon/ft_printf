@@ -8,6 +8,7 @@
 #include <stdarg.h>
 #include <limits.h>
 #include <wchar.h>
+#include <locale.h>
 
 #define Z 1
 #define H 2

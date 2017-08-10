@@ -15,34 +15,40 @@ typedef union		u_uni
 #include <stdio.h>
 #include <locale.h>
 
-// 1 01111 100001 110011
+// 11 110000
 
-int		ft_putchar_uni(unsigned int uni)
+static int		uni_to_str(unsigned char *uni, char *str, int uni_id)
+{
+	int		ret;
+
+	ret = 0;
+	while (ret < uni_id)
+	{
+		str[ret] = uni[ret];
+		ret++;
+	}
+	return (ret);
+}
+
+int				ft_putuni_str(unsigned int uni, char *str)
 {
 	t_uni			u8;
 	unsigned char	c;
 	int				ret;
-	char			bin[300];
 
 	u8.dec = uni;
 	ret = 0;
-	ft_bzero(bin, 300);
 	if (uni > 0xFFFF)
 	{
-		c = (uni >> 16) | 0xF0;
-		u8.oct_3[0] = c;
-		/*
-		c = ((uni >> 12) & (~0x3C0)) | 0x80;
-		u8.oct_3[1] = c;
-		c = (uni & (~0xFFC0)) | 0x80;
-		u8.oct_3[2] = c;
-		*/
-		//ret = write(1, u8.oct_3, 2);
-
-		ft_itoa_base(c, bin, 2);
-		printf("%s\n", bin);
-		//printf("uni %d\n", uni);
-		printf("\nid : 1\n");
+		c = (uni >> 18 & (~0x1FFFC0)) | 0xF0;
+		u8.oct_4[0] = c;
+		c = ((uni >> 12) & (~0x1FFFC0)) | 0x80;
+		u8.oct_4[1] = c;
+		c = ((uni >> 6) & (~0x1FFFC0)) | 0x80;
+		u8.oct_4[2] = c;
+		c = (uni & (~0x1FFFC0)) | 0x80;
+		u8.oct_4[3] = c;
+		ret = uni_to_str(u8.oct_4, str, 4);
 	}
 	else if (uni > 0x7FF)
 	{
@@ -52,32 +58,35 @@ int		ft_putchar_uni(unsigned int uni)
 		u8.oct_3[1] = c;
 		c = (uni & (~0xFFC0)) | 0x80;
 		u8.oct_3[2] = c;
-		ret = write(1, u8.oct_3, 2);
-		printf("\nid : 2\n");
+		ret = uni_to_str(u8.oct_3, str, 3);
 	}
 	else if (uni > 0x7F)
 	{
-		c = (uni >> 6) | 0xC4;
+		c = (uni >> 6) | 0xC0;
 		u8.oct_2[0] = c;
-		c = (uni & (~0xFF00)) | 0x80;
+		c = (uni & (~0xFC0)) | 0x80;
 		u8.oct_2[1] = c;
-		ret = write(1, u8.oct_2, 3);
-		printf("\nid : 3\n");
+		ret = uni_to_str(u8.oct_2, str, 2);
 	}
 	else
-		ret = write(1, &u8.oct_1, 1);
+		ret = uni_to_str(&u8.oct_1, str, 1);
 	return (ret);
 }
 
-#define VALUE 0x2F873
+#define VALUE 0x1D320
 
+/*
 int		main()
 {
+	char			bin[300];
+
+	ft_bzero(bin, 300);
 	setlocale(LC_ALL, "");
-	ft_putchar_uni(VALUE);
+	ft_putuni_str(VALUE, bin);
+	printf("%s\n", bin);
 	printf("\n%C\n", VALUE);
 	//printf("%d\n", 0xF0 >> 3); //30
 	//printf("%d\n", 0xE0 >> 4); //14
 	//printf("%d\n", 0xC0 >> 5); //6
 	return (0);
-}
+}*/

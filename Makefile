@@ -3,7 +3,7 @@ HEAD = ft_printf.h
 LIBDIR = libft
 SRC = *.c libft/*.c
 CC = gcc
-FLAG = -c
+FLAG = -c -O2
 OBJ = *.o
 
 all: $(NAME) clean

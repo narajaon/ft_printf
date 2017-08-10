@@ -4,7 +4,16 @@ void	init_params(t_env *e)
 {
 	e->cast.ll = 0;
 	e->ucast.ll = 0;
-	ft_bzero(&e->flags, sizeof(e->flags));
+	e->flags.width = 0;
+	e->flags.precis = 0;
+	e->flags.size = 0;
+	e->flags.conv = 0;
+	e->flags.opt.min = 0;
+	e->flags.opt.hash = 0;
+	e->flags.opt.sign = 0;
+	e->flags.opt.decal = 0;
+	e->flags.opt.fill_prec = 0;
+	e->flags.opt.precis = 0;
 	e->cast_size = 0;
 	e->cast_id = 0;
 	e->cast_sign = 0;
@@ -55,6 +64,7 @@ void	format_value(char *output, char **str, int *pos, t_env *e)
 {
 	int		ret;
 
+	output[*pos] = '\0';
 	ret = stock_perc(str, e, pos);
 	if (ret)
 	{
@@ -62,7 +72,7 @@ void	format_value(char *output, char **str, int *pos, t_env *e)
 		{
 			if (e->flags.conv)
 				print_param(e, pos, str);
-			if (e->flags.conv != 'c')
+			if (e->flags.conv != 'c' && e->flags.conv != 'C')
 				apply_opt(e, pos); // ???
 			ft_strclr(e->out_tmp);
 		}

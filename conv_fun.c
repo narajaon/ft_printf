@@ -236,11 +236,13 @@ void	capx_conv(t_env *e, int *pos, char *tmp)
 	if (e->cast_id == HH)
 		e->cast_size = ft_cap_ltoa_base(e->ucast.hh, tmp, 16);
 	else
-		e->cast_size = ft_cap_ltoa_base(e->ucast.ll, tmp, 16);
+		e->cast_size = ft_cap_ltoa_base(e->ucast.d, tmp, 16);
 }
 
 void	print_null(t_env *e, int *pos, char *tmp)
 {
+	if (*pos == 0)
+		ft_strclr(e->output);
 	e->output_size += write(1, e->output, ft_strlen(e->output));
 	ft_bzero(e->output, *pos);
 	if (e->flags.width && !e->flags.opt.min)
@@ -273,7 +275,14 @@ void	c_conv(t_env *e, int *pos, char *tmp)
 void	capc_conv(t_env *e, int *pos, char *tmp)
 {
 	e->ucast.d = va_arg(e->arg, unsigned int);
-	ft_putchar_uni(e->cast.uni);
+	e->cast_size = 1;
+	if (e->ucast.d == '\0')
+		print_null(e, pos, tmp);
+	else
+	{
+		e->cast_size = ft_putuni_str(e->ucast.d, tmp);
+		apply_opt(e, pos);
+	}
 }
 
 void	fill_funtab(t_env *e)

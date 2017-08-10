@@ -6,7 +6,7 @@
 /*   By: narajaon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 18:21:28 by narajaon          #+#    #+#             */
-/*   Updated: 2017/08/10 17:07:38 by narajaon         ###   ########.fr       */
+/*   Updated: 2017/08/10 19:02:55 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,5 @@ unsigned int	ft_uitoa_str(unsigned int n, char *str);
 int				ft_ltoa_str(long int n, char *str);
 int				ft_lltoa_str(long long int n, char *str);
 int				nbr_size(unsigned long long int nbr);
-int				ft_putchar_uni(unsigned int uni);
+int				ft_putuni_str(unsigned int uni, char *str);
 #endif

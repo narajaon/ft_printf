@@ -106,14 +106,16 @@ void	s_conv(t_env *e, int *pos, char *tmp)
 
 void	caps_conv(t_env *e, int *pos, char *tmp)
 {
-	wchar_t		*arg;
+	unsigned int	*arg;
 
-	arg = va_arg(e->arg, wchar_t *);
+	arg = va_arg(e->arg, unsigned int *);
 	if (!arg)
 	{
 		ft_strcpy(&e->output[*pos], "(null)");
 		*pos += 6;
 	}
+	else
+		e->cast_size = ft_putstr_uni(arg, tmp);
 }
 
 void	p_conv(t_env *e, int *pos, char *tmp)

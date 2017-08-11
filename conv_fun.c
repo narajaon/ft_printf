@@ -234,7 +234,8 @@ void	print_null(t_env *e, int *pos, char *tmp)
 
 void	c_conv(t_env *e, int *pos, char *tmp)
 {
-	e->cast.c = va_arg(e->arg, unsigned int);
+	if (!e->cast.c)
+		e->cast.c = va_arg(e->arg, unsigned int);
 	e->cast_size = 1;
 	if (e->cast.c)
 	{
@@ -257,6 +258,11 @@ void	capc_conv(t_env *e, int *pos, char *tmp)
 		print_null(e, pos, tmp);
 }
 
+void	prec_conv(t_env *e, int *pos, char *tmp)
+{
+	e->cast.c = *tmp;
+}
+
 void	fill_funtab(t_env *e)
 {
 	e->conv['d'] = &d_conv;
@@ -273,4 +279,5 @@ void	fill_funtab(t_env *e)
 	e->conv['X'] = &capx_conv;
 	e->conv['c'] = &c_conv;
 	e->conv['C'] = &capc_conv;
+	e->conv['%'] = &capc_conv;
 }

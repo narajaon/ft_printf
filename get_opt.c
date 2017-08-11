@@ -42,7 +42,6 @@ void	get_opt(char **str, t_env *e)
 {
 	char		option;
 
-	e->flags.opt.decal = ' ';
 	while ((option = is_opt(*str)))
 	{
 		opt_resolver(option, &e->flags.opt);

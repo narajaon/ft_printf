@@ -18,6 +18,7 @@ void	get_precis(char **str, t_env *e)
 
 int		get_values(char **ptr, t_env *e, int *pos)
 {
+	e->flags.opt.decal = ' ';
 	while (**ptr && (is_opt(*ptr) || is_cast(*ptr) ||
 			ft_isdigit(**ptr) || **ptr == '.'))
 	{

@@ -6,7 +6,7 @@
 /*   By: narajaon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 09:31:02 by narajaon          #+#    #+#             */
-/*   Updated: 2017/07/26 19:21:23 by narajaon         ###   ########.fr       */
+/*   Updated: 2017/08/11 12:17:16 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,24 +36,17 @@ static void		reverse(char *str, int len)
 	}
 }
 
-int				ft_cap_ltoa_base(long long int num, char *buff, int base)
+int				ft_cap_ultoa_base(unsigned long long num, char *buff, int base)
 {
-	int				i;
-	long long 		rem;
-	int				neg;
+	int						i;
+	unsigned long long 		rem;
 
 	i = 0;
-	neg = 0;
 	if (num == 0)
 	{
 		buff[i++] = '0';
 		buff[i] = '\0';
 		return (1);
-	}
-	if (num < 0 && base == 10)
-	{
-		num *= -1;
-		neg = 1;
 	}
 	while (num)
 	{
@@ -61,8 +54,6 @@ int				ft_cap_ltoa_base(long long int num, char *buff, int base)
 		buff[i++] = (rem > 9) ? (rem - 10 + 'A') : (rem + '0');
 		num /= base;
 	}
-	if (neg)
-		buff[i++] = '-';
 	buff[i] = '\0';
 	reverse(buff, i);
 	return (i);

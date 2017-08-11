@@ -12,11 +12,11 @@ void	init_params(t_env *e)
 	e->flags.opt.hash = 0;
 	e->flags.opt.sign = 0;
 	e->flags.opt.decal = 0;
-	e->flags.opt.fill_prec = 0;
+	e->flags.opt.fill_prec = '0';
 	e->flags.opt.precis = 0;
 	e->cast_size = 0;
 	e->cast_id = 0;
-	e->cast_sign = 0;
+	e->cast_sign = 1;
 	e->is_limit = 0;
 }
 

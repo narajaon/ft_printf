@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ltoa_base.c                                     :+:      :+:    :+:   */
+/*   ft_ultoa_base.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: narajaon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/25 16:56:16 by narajaon          #+#    #+#             */
-/*   Updated: 2017/08/11 11:53:09 by narajaon         ###   ########.fr       */
+/*   Created: 2017/08/11 12:01:44 by narajaon          #+#    #+#             */
+/*   Updated: 2017/08/11 12:02:50 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,27 +36,18 @@ static void		reverse(char *str, int len)
 	}
 }
 
-//#include <stdio.h>
 
-int				ft_ltoa_base(long long int num, char *buff, int base)
+int				ft_ultoa_base(unsigned long long num, char *buff, int base)
 {
-	int				i;
-	long long 		rem;
-	int				neg;
+	int						i;
+	unsigned long long 		rem;
 
-//	printf("\nDBG %llu", num);
 	i = 0;
-	neg = 0;
 	if (num == 0)
 	{
 		buff[i++] = '0';
 		buff[i] = '\0';
 		return (1);
-	}
-	if (num < 0 && base == 10)
-	{
-		num *= -1;
-		neg = 1;
 	}
 	while (num)
 	{
@@ -64,8 +55,6 @@ int				ft_ltoa_base(long long int num, char *buff, int base)
 		buff[i++] = (rem > 9) ? (rem - 10 + 'a') : (rem + '0');
 		num /= base;
 	}
-	if (neg)
-		buff[i++] = '-';
 	buff[i] = '\0';
 	reverse(buff, i);
 	return (i);

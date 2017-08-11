@@ -75,19 +75,19 @@ void	d_cst(t_env *e, int *pos, char *tmp)
 void	oux_cst(t_env *e, int *pos, char *tmp, int base)
 {
 	if (e->flags.conv == 'O' || e->flags.conv == 'U')
-		e->cast_size += ft_ltoa_base(e->ucast.ll, tmp, base);
+		e->cast_size += ft_ultoa_base(e->ucast.ll, tmp, base);
 	else if (e->cast_id == HH)
-		e->cast_size += ft_ltoa_base(e->ucast.hh, tmp, base);
+		e->cast_size += ft_ultoa_base(e->ucast.hh, tmp, base);
 	else if (e->cast_id == H)
-		e->cast_size += ft_ltoa_base(e->ucast.h, tmp, base);
+		e->cast_size += ft_ultoa_base(e->ucast.h, tmp, base);
 	else if (e->cast_id == L)
-		e->cast_size += ft_ltoa_base(e->ucast.ll, tmp, base);
+		e->cast_size += ft_ultoa_base(e->ucast.ll, tmp, base);
 	else if (e->cast_id == LL)
-		e->cast_size += ft_ltoa_base(e->ucast.ll, tmp, base);
+		e->cast_size += ft_ultoa_base(e->ucast.ll, tmp, base);
 	else if (e->cast_id == J)
-		e->cast_size += ft_ltoa_base(e->ucast.l, tmp, base);
+		e->cast_size += ft_ultoa_base(e->ucast.l, tmp, base);
 	else if (e->cast_id == Z)
-		e->cast_size += ft_ltoa_base(e->ucast.z, tmp, base);
+		e->cast_size += ft_ultoa_base(e->ucast.z, tmp, base);
 	else
-		e->cast_size += ft_ltoa_base(e->ucast.ll, tmp, base);
+		e->cast_size += ft_ultoa_base(e->ucast.d, tmp, base);
 }

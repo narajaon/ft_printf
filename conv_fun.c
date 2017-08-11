@@ -132,7 +132,11 @@ void	o_conv(t_env *e, int *pos, char *tmp)
 	pos_tmp = *pos;
 	e->ucast.ll = va_arg(e->arg, long long int);
 	if (e->flags.opt.hash && e->ucast.ll)
+	{
+		e->cast_size++;
+		e->output_size--;
 		e->flags.opt.sign = '0';
+	}
 	else
 		e->flags.opt.sign = 0;
 	if (e->ucast.ll == 0 && e->flags.opt.precis &&
@@ -147,8 +151,12 @@ void	capo_conv(t_env *e, int *pos, char *tmp)
 	if (e->ucast.ll == 0 && e->flags.opt.precis &&
 			!e->flags.precis && !e->flags.opt.hash)
 		return ;
-	if (e->flags.opt.hash)
+	if (e->flags.opt.hash && e->ucast.ll)
+	{
+		e->cast_size++;
+		e->output_size--;
 		e->flags.opt.sign = '0';
+	}
 	else
 		e->flags.opt.sign = 0;
 	oux_cst(e, pos, tmp, 8);
@@ -189,6 +197,8 @@ void	x_conv(t_env *e, int *pos, char *tmp)
 		e->flags.conv = 'p';
 		e->flags.opt.sign = 'x';
 	}
+	else
+		e->flags.opt.sign = 0;
 	oux_cst(e, pos, tmp, 16);
 	if (!e->ucast.d && e->flags.opt.hash)
 	{
@@ -210,6 +220,8 @@ void	capx_conv(t_env *e, int *pos, char *tmp)
 		e->flags.conv = 'p';
 		e->flags.opt.sign = 'X';
 	}
+	else
+		e->flags.opt.sign = 0;
 	if (e->cast_id == HH)
 		e->cast_size = ft_cap_ultoa_base(e->ucast.hh, tmp, 16);
 	else
@@ -240,6 +252,7 @@ void	c_conv(t_env *e, int *pos, char *tmp)
 	if (e->cast.c)
 	{
 		*tmp = e->cast.c;
+		e->flags.precis = 1;
 		apply_opt(e, pos); // ???
 	}
 	else
@@ -258,11 +271,6 @@ void	capc_conv(t_env *e, int *pos, char *tmp)
 		print_null(e, pos, tmp);
 }
 
-void	prec_conv(t_env *e, int *pos, char *tmp)
-{
-	e->cast.c = *tmp;
-}
-
 void	fill_funtab(t_env *e)
 {
 	e->conv['d'] = &d_conv;
@@ -279,5 +287,4 @@ void	fill_funtab(t_env *e)
 	e->conv['X'] = &capx_conv;
 	e->conv['c'] = &c_conv;
 	e->conv['C'] = &capc_conv;
-	e->conv['%'] = &capc_conv;
 }

@@ -31,9 +31,11 @@ int		get_values(char **ptr, t_env *e, int *pos)
 		exit(write(1, e->output, ft_strlen(e->output)));
 	if (!is_conv(**ptr))
 	{
-		e->flags.conv = '%';
-		return (1);
+		e->flags.conv = 'c';
+		e->cast.c = **ptr;
+		*ptr += 1;
 	}
-	get_conv(ptr, e, pos);
+	else
+		get_conv(ptr, e, pos);
 	return (1);
 }

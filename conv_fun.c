@@ -2,27 +2,11 @@
 
 int		d_limits(t_env *e, int *pos, char *tmp)
 {
-	if (e->cast_id == H && e->cast.d == SHRT_MIN)
-	{
-		e->cast.l *= -1;
-		return (e->is_limit = 1);
-	}
-	if (e->cast_id == HH && e->cast.d <= CHAR_MIN)
-	{
-		e->cast.l *= -1;
-		return (e->is_limit = 1);
-	}
-	if ((e->cast.l >= LONG_MAX || e->cast.l <= LONG_MIN))
-	{
-		e->cast.l *= -1;
-		return (e->is_limit = 1);
-	}
-	if ((e->cast.d > INT_MAX || e->cast.d <= INT_MIN))
-	{
-		e->cast.l *= -1;
-		return (e->is_limit = 1);
-	}
-	if (e->cast.l == UINT_MAX)
+	if ((e->cast_id == H && e->cast.d == SHRT_MIN) ||
+		(e->cast_id == HH && e->cast.d <= CHAR_MIN) ||
+		(e->cast.l >= LONG_MAX || e->cast.l <= LONG_MIN) ||
+		(e->cast.d > INT_MAX || e->cast.d <= INT_MIN) ||
+		(e->cast.l == UINT_MAX))
 	{
 		e->cast.l *= -1;
 		return (e->is_limit = 1);
@@ -189,7 +173,7 @@ void	u_conv(t_env *e, int *pos, char *tmp)
 	oux_cst(e, pos, tmp, 10);
 }
 
-void	capu_conv(t_env *e, int *pos, char *tmp) //meme chose
+void	capu_conv(t_env *e, int *pos, char *tmp)
 {
 	int		pos_tmp;
 
@@ -275,7 +259,7 @@ void	c_conv(t_env *e, int *pos, char *tmp)
 	{
 		*tmp = e->cast.c;
 		e->flags.precis = 1;
-		apply_opt(e, pos); // ???
+		apply_opt(e, pos);
 	}
 	else
 		print_null(e, pos, tmp);
@@ -287,7 +271,7 @@ void	capc_conv(t_env *e, int *pos, char *tmp)
 	if (e->ucast.d)
 	{
 		e->cast_size = ft_putuni_str(e->ucast.d, tmp);
-		apply_opt(e, pos); // ???
+		apply_opt(e, pos);
 	}
 	else
 		print_null(e, pos, tmp);

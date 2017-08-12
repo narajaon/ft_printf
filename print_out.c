@@ -27,7 +27,6 @@ void	print_output(char *conv, int *i,
 	(conv) ? ft_bzero(conv, *i) : 0;
 	e->output_size += *i;
 	*i = 0;
-//	exit(1);
 }
 
 void	print_param(t_env *e, int *pos, char **str)
@@ -35,10 +34,9 @@ void	print_param(t_env *e, int *pos, char **str)
 	void	(*conv)(t_env *, int *, char *);
 
 	conv = e->conv[e->flags.conv];
-	e->flags.opt.fill_prec = '0'; //precision filler
+	e->flags.opt.fill_prec = '0';
 	conv(e, pos, e->out_tmp);
 }
-
 
 int		stock_perc(char **str, t_env *e, int *pos)
 {
@@ -73,7 +71,7 @@ void	format_value(char *output, char **str, int *pos, t_env *e)
 			if (e->flags.conv)
 				print_param(e, pos, str);
 			if (e->flags.conv != 'c' && e->flags.conv != 'C')
-				apply_opt(e, pos); // ???
+				apply_opt(e, pos);
 			ft_bzero(e->out_tmp, sizeof(e->out_tmp));
 		}
 	}

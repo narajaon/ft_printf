@@ -6,7 +6,7 @@
 /*   By: narajaon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/25 16:51:14 by narajaon          #+#    #+#             */
-/*   Updated: 2017/07/25 16:57:08 by narajaon         ###   ########.fr       */
+/*   Updated: 2017/08/12 19:07:26 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ static void		reverse(char *str, int len)
 
 int				ft_itoa_base(int num, char *buff, int base)
 {
-	int				i;
-	int				rem;
-	int				neg;
+	int			i;
+	int			rem;
+	int			neg;
 
 	i = 0;
 	neg = 0;
@@ -50,11 +50,8 @@ int				ft_itoa_base(int num, char *buff, int base)
 		buff[i] = '\0';
 		return (0);
 	}
-	if (num < 0 && base == 10)
-	{
-		num *= -1;
-		neg = 1;
-	}
+	num *= (num < 0 && base == 10) ? -1 : 1;
+	neg = (num < 0 && base == 10) ? 1 : 0;
 	while (num)
 	{
 		rem = num % base;

@@ -27,7 +27,7 @@ int		get_values(char **ptr, t_env *e, int *pos)
 		is_cast(*ptr) ? get_size(ptr, e, *ptr) : 0;
 		ft_isdigit(**ptr) ? get_width(ptr, e) : 0;
 	}
-	if (**ptr == '\0') //attention debug
+	if (**ptr == '\0')
 		exit(write(1, e->output, ft_strlen(e->output)));
 	if (!is_conv(**ptr))
 	{

@@ -1,6 +1,7 @@
+
 #include "ft_printf.h"
 
-int		ft_printf(const char *str,...)
+int		ft_printf(const char *str, ...)
 {
 	t_env	e;
 

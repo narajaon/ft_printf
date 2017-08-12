@@ -57,7 +57,7 @@ void	minus_opt(t_env *e, int *pos)
 		i -= (e->cast_sign < 0) ? 0 : 1;
 	}
 	prec_min(e, pos, &prec_pad, &i);
-	while (i-- > 0 )
+	while (i-- > 0)
 	{
 		e->output[*pos] = ' ';
 		*pos += 1;

@@ -1,5 +1,16 @@
-#include "libft.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putchar_uni.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: narajaon <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/08/12 18:54:34 by narajaon          #+#    #+#             */
+/*   Updated: 2017/08/12 18:54:41 by narajaon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "libft.h"
 
 static int		uni_to_str(unsigned char *uni, char *str, int uni_id)
 {
@@ -14,7 +25,7 @@ static int		uni_to_str(unsigned char *uni, char *str, int uni_id)
 	return (ret);
 }
 
-void			big_char(unsigned int uni, t_uni *u8, unsigned char *c)
+static void		big_char(unsigned int uni, t_uni *u8, unsigned char *c)
 {
 	*c = (uni >> 18 & (~0x1FFFC0)) | 0xF0;
 	u8->oct_4[0] = *c;
@@ -26,7 +37,7 @@ void			big_char(unsigned int uni, t_uni *u8, unsigned char *c)
 	u8->oct_4[3] = *c;
 }
 
-void			med_char(unsigned int uni, t_uni *u8, unsigned char *c)
+static void		med_char(unsigned int uni, t_uni *u8, unsigned char *c)
 {
 	*c = (uni >> 12) | 0xE0;
 	u8->oct_3[0] = *c;
@@ -34,6 +45,14 @@ void			med_char(unsigned int uni, t_uni *u8, unsigned char *c)
 	u8->oct_3[1] = *c;
 	*c = (uni & (~0xFFC0)) | 0x80;
 	u8->oct_3[2] = *c;
+}
+
+static void		smallish_char(unsigned int uni, t_uni *u8, unsigned char *c)
+{
+	*c = (uni >> 6) | 0xC0;
+	u8->oct_2[0] = *c;
+	*c = (uni & (~0xFC0)) | 0x80;
+	u8->oct_2[1] = *c;
 }
 
 int				ft_putuni_str(unsigned int uni, char *str)
@@ -56,10 +75,7 @@ int				ft_putuni_str(unsigned int uni, char *str)
 	}
 	else if (uni > 0x7F)
 	{
-		c = (uni >> 6) | 0xC0;
-		u8.oct_2[0] = c;
-		c = (uni & (~0xFC0)) | 0x80;
-		u8.oct_2[1] = c;
+		smallish_char(uni, &u8, &c);
 		ret = uni_to_str(u8.oct_2, str, 2);
 	}
 	else

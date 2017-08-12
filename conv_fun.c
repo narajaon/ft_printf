@@ -22,6 +22,11 @@ int		d_limits(t_env *e, int *pos, char *tmp)
 		e->cast.l *= -1;
 		return (e->is_limit = 1);
 	}
+	if (e->cast.l == UINT_MAX)
+	{
+		e->cast.l *= -1;
+		return (e->is_limit = 1);
+	}
 	return (e->is_limit = 0);
 }
 

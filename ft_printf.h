@@ -58,16 +58,17 @@ typedef struct					s_opt
 	char						sign;
 	char						decal;
 	char						fill_prec;
+	int							star;
 	int							precis;
 }								t_opt;
 
 typedef struct					s_flags
 {
 	t_opt						opt;
+	char						conv;
 	int							width;
 	int							precis;
 	int							size;
-	char						conv;
 }								t_flags;
 
 typedef struct					s_env
@@ -84,7 +85,7 @@ typedef struct					s_env
 	int							cast_id;
 	int							is_limit;
 	int							cast_sign;
-}					t_env;
+}								t_env;
 
 char							is_conv(char c);
 char							is_opt(char *str);

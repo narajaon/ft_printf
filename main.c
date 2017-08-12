@@ -1,5 +1,5 @@
 #include "ft_printf.h"
-#define VALUE "%+d", LONG_MAX
+#define VALUE "%.*d", 3, 2
 
 int		main(int ac, char **av)
 {

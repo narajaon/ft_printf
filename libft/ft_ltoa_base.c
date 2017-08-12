@@ -6,7 +6,7 @@
 /*   By: narajaon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/25 16:56:16 by narajaon          #+#    #+#             */
-/*   Updated: 2017/08/11 11:53:09 by narajaon         ###   ########.fr       */
+/*   Updated: 2017/08/12 13:44:17 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,12 @@ static void		reverse(char *str, int len)
 	}
 }
 
-//#include <stdio.h>
-
 int				ft_ltoa_base(long long int num, char *buff, int base)
 {
 	int				i;
 	long long 		rem;
 	int				neg;
 
-//	printf("\nDBG %llu", num);
 	i = 0;
 	neg = 0;
 	if (num == 0)

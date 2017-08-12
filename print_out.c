@@ -23,7 +23,7 @@ void	init_params(t_env *e)
 void	print_output(char *conv, int *i,
 		t_env *e)
 {
-	(conv) ? ft_putstr(conv) : 0;
+	(conv) ? write(1, conv, ft_strlen(conv)) : 0;
 	(conv) ? ft_bzero(conv, *i) : 0;
 	e->output_size += *i;
 	*i = 0;
@@ -74,7 +74,7 @@ void	format_value(char *output, char **str, int *pos, t_env *e)
 				print_param(e, pos, str);
 			if (e->flags.conv != 'c' && e->flags.conv != 'C')
 				apply_opt(e, pos); // ???
-			ft_strclr(e->out_tmp);
+			ft_bzero(e->out_tmp, sizeof(e->out_tmp));
 		}
 	}
 	init_params(e);

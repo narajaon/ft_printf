@@ -1,12 +1,48 @@
 #include "ft_printf.h"
 
+void	init_prec_min(t_env *e, int *pos, int *prec_pad, int *i)
+{
+	if (e->flags.conv != 's' && e->flags.conv != 'c' &&
+			e->flags.conv != 'C' && e->flags.conv != 'S')
+	{
+		*prec_pad = (e->cast_size < e->flags.precis) ?
+			e->flags.precis - e->cast_size : 0;
+	}
+	else
+	{
+		*prec_pad = (e->cast_size <= e->flags.precis) ?
+			e->cast_size : (e->cast_size - e->flags.precis);
+	}
+}
+
+void	prec_min(t_env *e, int *pos, int *prec_pad, int *i)
+{
+	if (e->flags.conv != 's' && e->flags.conv != 'c' &&
+			e->flags.conv != 'C' && e->flags.conv != 'S')
+	{
+		while (*prec_pad > 0)
+		{
+			e->output[*pos] = '0';
+			*prec_pad -= 1;
+			*pos += 1;
+		}
+		ft_strcpy(&e->output[*pos], e->out_tmp);
+		*pos += e->cast_size;
+	}
+	else
+	{
+		ft_strncpy(&e->output[*pos], e->out_tmp, *prec_pad);
+		*pos += *prec_pad;
+		*i = e->flags.width - *prec_pad;
+	}
+}
+
 void	minus_opt(t_env *e, int *pos)
 {
 	int		i;
 	int		prec_pad;
 
-	prec_pad = (e->cast_size < e->flags.precis) ?
-		e->flags.precis - e->cast_size : 0;
+	init_prec_min(e, pos, &prec_pad, &i);
 	if (e->flags.conv == 'p')
 	{
 		e->output[*pos] = '0';
@@ -20,13 +56,7 @@ void	minus_opt(t_env *e, int *pos)
 		*pos += 1;
 		i -= (e->cast_sign < 0) ? 0 : 1;
 	}
-	while (prec_pad-- > 0)
-	{
-		e->output[*pos] = '0';
-		*pos += 1;
-	}
-	ft_strcpy(&e->output[*pos], e->out_tmp);
-	*pos += e->cast_size;
+	prec_min(e, pos, &prec_pad, &i);
 	while (i-- > 0 )
 	{
 		e->output[*pos] = ' ';
@@ -88,8 +118,8 @@ void	put_sign(t_env *e, int *pos, int *posi)
 	if (!e->is_limit && (e->flags.conv != 'c' &&
 				e->flags.conv != 'C' && e->flags.conv != 's'
 				&& e->flags.conv != 'S'))
-		{
-		if (e->flags.conv == 'p')
+	{
+		if (e->flags.conv == 'p' && e->flags.opt.decal == ' ')
 		{
 			e->output[*pos + *posi] = '0';
 			*pos += 1;
@@ -138,8 +168,14 @@ void	width_opt_digit(t_env *e, int *pos)
 void	apply_opt(t_env *e, int *pos)
 {
 	if (e->flags.opt.decal == '0' &&
-			(e->cast_sign < 0 || e->flags.opt.sign) && !e->is_limit)
+			(e->cast_sign < 0 || e->flags.opt.sign) &&
+			!e->is_limit && !e->flags.opt.min)
 	{
+		if (e->flags.conv == 'p')
+		{
+			e->output[*pos] = '0';
+			*pos += 1;
+		}
 		e->output[*pos] = (e->cast_sign < 0) ? '-' : e->flags.opt.sign;
 		*pos += 1;
 	}

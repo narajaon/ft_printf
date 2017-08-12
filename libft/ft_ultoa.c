@@ -1,25 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*   ft_ultoa.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: narajaon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/17 09:41:46 by narajaon          #+#    #+#             */
-/*   Updated: 2017/04/17 09:48:19 by narajaon         ###   ########.fr       */
+/*   Created: 2017/08/12 13:15:36 by narajaon          #+#    #+#             */
+/*   Updated: 2017/08/12 13:44:12 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstiter(t_list *lst, void (*f)(t_list *elem))
+static int		base_len(unsigned long long n)
 {
-	t_list *ptr;
+	if (n < 10)
+		return (1);
+	return (base_len(n / 10) + 1);
+}
 
-	ptr = lst;
-	while (ptr)
+static char		*to_asci(char *str, unsigned long long n)
+{
+	if (n >= 10)
 	{
-		f(ptr);
-		ptr = ptr->next;
+		to_asci(str, n / 10);
+		to_asci(str, n % 10);
 	}
+	if (n < 10)
+	{
+		while (*str)
+			str++;
+		*str = n + '0';
+	}
+	return (str);
+}
+
+int				ft_ultoa_str(unsigned long long n, char *str)
+{
+	int		ret;
+
+	ret = base_len(n);
+	to_asci(str, n);
+	return (ret);
 }

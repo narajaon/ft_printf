@@ -52,10 +52,11 @@ int		put_minus(t_env *e, int *pos, char *tmp)
 void	d_conv(t_env *e, int *pos, char *tmp)
 {
 	e->cast.ll = va_arg(e->arg, long long);
-	if (!e->cast.ll && e->flags.opt.precis)
+	if (e->flags.opt.precis)
 		e->flags.opt.decal = ' ';
 	e->cast_sign = put_minus(e, pos, tmp);
-	if ((e->cast.ll >= LLONG_MAX || e->cast.ll <= LLONG_MIN))
+	if ((e->cast.ll >= LLONG_MAX || e->cast.ll <= LLONG_MIN) &&
+			(e->cast_id == L || e->cast_id == LL))
 	{
 		if (e->cast.ll >= LLONG_MAX)
 			e->cast_sign = 1;

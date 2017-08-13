@@ -106,7 +106,8 @@ void	width_opt_str(t_env *e, int *pos)
 	}
 	else
 	{
-		prec_pad = ft_strlen(e->out_tmp);
+		prec_pad = (e->flags.opt.precis && !e->flags.precis) ?
+			0 : ft_strlen(e->out_tmp);
 		if (*e->out_tmp)
 			ft_strncpy(&e->output[*pos], e->out_tmp, prec_pad);
 		*pos += prec_pad - posi;

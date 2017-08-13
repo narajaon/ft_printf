@@ -2,9 +2,14 @@
 
 void	get_width(char **str, t_env *e)
 {
+	int		arg;
+
 	if (**str == '*')
 	{
-		e->flags.width = va_arg(e->arg, unsigned int);
+		arg = va_arg(e->arg, unsigned int);
+		if (arg < 0)
+			e->flags.opt.min = 1;
+		e->flags.width = ft_abs(arg);
 		*str += 1;
 	}
 	else
@@ -22,6 +27,11 @@ void	get_precis(char **str, t_env *e)
 	if (**str == '*')
 	{
 		e->flags.precis = va_arg(e->arg, unsigned int);
+		if (e->flags.precis < 0)
+		{
+			e->flags.precis = 0;
+			e->flags.opt.precis = 0;
+		}
 		*str += 1;
 	}
 	else

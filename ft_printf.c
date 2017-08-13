@@ -1,4 +1,3 @@
-
 #include "ft_printf.h"
 
 int		ft_printf(const char *str, ...)
@@ -23,6 +22,6 @@ int		ft_printf(const char *str, ...)
 		e.flags.opt.sign, e.flags.opt.decal, e.flags.opt.star);
 	NBR(e.cast_id);
 #endif
-	//printf("\noutput_size |%d|\n", e.output_size);
+//	printf("\noutput_size |%d|\n", e.output_size);
 	return (e.output_size);
 }

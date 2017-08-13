@@ -18,6 +18,7 @@ void	init_params(t_env *e)
 	e->cast_id = 0;
 	e->cast_sign = 1;
 	e->is_limit = 0;
+	e->overflow = 0;
 }
 
 void	print_output(char *conv, int *i,
@@ -70,7 +71,7 @@ void	format_value(char *output, char **str, int *pos, t_env *e)
 		{
 			if (e->flags.conv)
 				print_param(e, pos, str);
-			if (e->flags.conv != 'c' && e->flags.conv != 'C')
+			if (e->flags.conv != 'c' && e->flags.conv != 'C' && !e->overflow)
 				apply_opt(e, pos);
 			ft_bzero(e->out_tmp, sizeof(e->out_tmp));
 		}

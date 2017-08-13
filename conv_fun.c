@@ -36,7 +36,7 @@ int		put_minus(t_env *e, int *pos, char *tmp)
 void	d_conv(t_env *e, int *pos, char *tmp)
 {
 	e->cast.ll = va_arg(e->arg, long long);
-	if (e->flags.opt.precis)
+	if (e->flags.opt.precis && e->flags.precis >= 0)
 		e->flags.opt.decal = ' ';
 	e->cast_sign = put_minus(e, pos, tmp);
 	if ((e->cast.ll >= LLONG_MAX || e->cast.ll <= LLONG_MIN) &&
@@ -76,6 +76,27 @@ void	capd_conv(t_env *e, int *pos, char *tmp)
 	e->cast_size = e->cast_size + ((e->flags.opt.sign) ? 1 : 0);
 }
 
+void	manage_overflow(t_env *e, int *pos, char *tmp, char *arg)
+{
+	if (e->flags.opt.precis)
+		e->cast_size = e->flags.precis;
+	e->output_size += write(1, e->output, *pos);
+	if (!e->flags.opt.min)
+	{
+		while (e->flags.width-- > e->cast_size)
+			e->output_size += write(1, " ", 1);
+	}
+	e->output_size += write(1, arg, e->cast_size);
+	if (e->flags.opt.min)
+	{
+		while (e->flags.width-- > e->cast_size)
+			e->output_size += write(1, " ", 1);
+	}
+	ft_bzero(e->output, sizeof(e->output));
+	e->overflow = 1;
+	*pos = 0;
+}
+
 void	s_conv(t_env *e, int *pos, char *tmp)
 {
 	char	*arg;
@@ -88,17 +109,14 @@ void	s_conv(t_env *e, int *pos, char *tmp)
 	arg = va_arg(e->arg, char *);
 	if (!arg)
 	{
-		if (!e->flags.opt.precis)
-			ft_strcpy(tmp, "(null)");
+		ft_strcpy(tmp, "(null)");
+		e->cast_size = 6;
 	}
 	else
 	{
 		e->cast_size = ft_strlen(arg);
 		if (e->cast_size >= BUFF_SIZE || !arg)
-		{
-			write(1, arg, ft_strlen(arg));
-			print_output((void *)0, &e->cast_size, e);
-		}
+			manage_overflow(e, pos, tmp, arg);
 		else
 			ft_strcpy(tmp, arg);
 	}
@@ -247,6 +265,7 @@ void	print_null(t_env *e, int *pos, char *tmp)
 
 void	c_conv(t_env *e, int *pos, char *tmp)
 {
+	e->flags.opt.fill_prec = ' ';
 	if (e->cast_id == L)
 	{
 		capc_conv(e, pos, tmp);

@@ -1,7 +1,7 @@
 #ifndef FT_PRINTF
 # define FT_PRINTF
 
-# define BUFF_SIZE 256
+# define BUFF_SIZE 2048
 # include "libft/libft.h"
 # include <stdio.h>
 # include <inttypes.h>
@@ -85,6 +85,7 @@ typedef struct					s_env
 	int							cast_id;
 	int							is_limit;
 	int							cast_sign;
+	int							overflow;
 }								t_env;
 
 char							is_conv(char c);

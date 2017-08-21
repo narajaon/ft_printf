@@ -6,13 +6,13 @@
 /*   By: narajaon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/13 16:34:23 by narajaon          #+#    #+#             */
-/*   Updated: 2017/08/13 16:34:35 by narajaon         ###   ########.fr       */
+/*   Updated: 2017/08/19 12:09:27 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	init_prec_wid_digit(t_env *e, int *prec_pad, int *wid_pad)
+void			init_prec_wid_digit(t_env *e, int *prec_pad, int *wid_pad)
 {
 	*prec_pad = (e->flags.precis > e->cast_size) ?
 		e->flags.precis - e->cast_size : 0;
@@ -25,7 +25,7 @@ void	init_prec_wid_digit(t_env *e, int *prec_pad, int *wid_pad)
 	*prec_pad += *wid_pad;
 }
 
-void	put_sign(t_env *e, int *pos, int *posi)
+void			put_sign(t_env *e, int *pos, int *posi)
 {
 	if (!e->is_limit && (e->flags.conv != 'c' &&
 				e->flags.conv != 'C' && e->flags.conv != 's'
@@ -52,7 +52,7 @@ void	put_sign(t_env *e, int *pos, int *posi)
 	}
 }
 
-void	width_opt_digit(t_env *e, int *pos)
+void			width_opt_digit(t_env *e, int *pos)
 {
 	int		posi;
 	int		prec_pad;
@@ -61,7 +61,9 @@ void	width_opt_digit(t_env *e, int *pos)
 	posi = 0;
 	init_prec_wid_digit(e, &prec_pad, &wid_pad);
 	while (posi < wid_pad)
+	{
 		e->output[*pos + posi++] = e->flags.opt.decal;
+	}
 	put_sign(e, pos, &posi);
 	if (wid_pad > 0 || prec_pad > 0)
 	{

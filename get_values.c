@@ -6,7 +6,7 @@
 /*   By: narajaon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/13 16:39:03 by narajaon          #+#    #+#             */
-/*   Updated: 2017/08/14 16:44:22 by narajaon         ###   ########.fr       */
+/*   Updated: 2017/08/19 12:15:25 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ void	get_width(char **str, t_env *e)
 		arg = va_arg(e->arg, unsigned int);
 		if (arg < 0)
 			e->flags.opt.min = 1;
-		e->flags.width = ft_abs(arg);
+		e->flags.width = ft_abs(arg) % (BUFF_SIZE - 32);
 		*str += 1;
 	}
 	else
 	{
-		e->flags.width = ft_atoi(*str);
+		e->flags.width = ft_atoi(*str) % (BUFF_SIZE - 32);
 		while (ft_isdigit(**str) && **str)
 			*str += 1;
 	}
@@ -44,11 +44,13 @@ void	get_precis(char **str, t_env *e)
 			e->flags.precis = 0;
 			e->flags.opt.precis = 0;
 		}
+		else
+			e->flags.precis %= (BUFF_SIZE - 32);
 		*str += 1;
 	}
 	else
 	{
-		e->flags.precis = ft_atoi(*str);
+		e->flags.precis = ft_atoi(*str) % (BUFF_SIZE - 32);
 		while (ft_isdigit(**str) && **str)
 			*str += 1;
 	}
@@ -65,7 +67,7 @@ int		get_values(char **ptr, t_env *e)
 		(ft_isdigit(**ptr) || **ptr == '*') ? get_width(ptr, e) : 0;
 		is_cast(*ptr) ? get_size(ptr, e) : 0;
 	}
-	if (!is_conv(**ptr))
+	if (!is_conv(**ptr) && **ptr)
 	{
 		e->flags.conv = 'c';
 		e->cast.c = **ptr;

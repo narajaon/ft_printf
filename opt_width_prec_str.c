@@ -6,7 +6,7 @@
 /*   By: narajaon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/13 16:34:19 by narajaon          #+#    #+#             */
-/*   Updated: 2017/08/13 16:41:04 by narajaon         ###   ########.fr       */
+/*   Updated: 2017/08/19 12:09:34 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ static void		init_prec_wid_str(t_env *e, int *prec_pad, int *wid_pad)
 
 void			width_opt_str(t_env *e, int *pos)
 {
-	int		posi;
-	int		prec_pad;
-	int		wid_pad;
+	int					posi;
+	int					prec_pad;
+	int					wid_pad;
 
 	posi = 0;
 	init_prec_wid_str(e, &prec_pad, &wid_pad);

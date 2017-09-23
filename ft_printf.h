@@ -6,7 +6,7 @@
 /*   By: narajaon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/13 16:33:44 by narajaon          #+#    #+#             */
-/*   Updated: 2017/09/23 13:35:51 by narajaon         ###   ########.fr       */
+/*   Updated: 2017/09/23 15:08:31 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ typedef struct					s_env
 	va_list						arg;
 	void						*conv[128];
 	char						output[BUFF_SIZE];
-	char						out_tmp[32];
+	char						out_tmp[BUFF_SIZE];
 	int							output_size;
 	int							cast_size;
 	int							cast_id;

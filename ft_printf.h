@@ -6,7 +6,7 @@
 /*   By: narajaon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/13 16:33:44 by narajaon          #+#    #+#             */
-/*   Updated: 2017/08/22 16:31:40 by narajaon         ###   ########.fr       */
+/*   Updated: 2017/09/23 13:20:59 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@
 # define LL 4
 # define J 5
 # define HH 6
+
+# define STDI 0
+# define STDO 1
+# define STDE 2
 
 typedef union					u_cast
 {
@@ -91,6 +95,7 @@ typedef struct					s_env
 	int							is_limit;
 	int							cast_sign;
 	int							overflow;
+	int							cur_fd;
 }								t_env;
 
 char							is_conv(char c);
@@ -137,5 +142,5 @@ void							hash_opt(t_env *e, int *pos);
 void							fill_funtab(t_env *e);
 
 int								ft_printf(const char *str, ...);
-
+int								ft_dprintf(int fd, char *str, ...);
 #endif

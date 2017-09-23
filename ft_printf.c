@@ -6,7 +6,7 @@
 /*   By: narajaon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/13 16:33:49 by narajaon          #+#    #+#             */
-/*   Updated: 2017/08/19 12:07:38 by narajaon         ###   ########.fr       */
+/*   Updated: 2017/09/23 13:28:37 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,29 @@ void	init_params(t_env *e)
 	e->cast_sign = 1;
 }
 
+int		ft_dprintf(int fd, char *str, ...)
+{
+	static t_env	e;
+
+	e.cast_sign = 1;
+	e.cur_fd = fd;
+	e.flags.opt.fill_prec = '0';
+	e.output_size = 0;
+	e.flags.opt.star = 0;
+	ft_bzero(e.out_tmp, sizeof(e.out_tmp));
+	va_start(e.arg, str);
+	fill_funtab(&e);
+	print_str((char **)&str, &e);
+	va_end(e.arg);
+	return (e.output_size);
+}
+
 int		ft_printf(const char *str, ...)
 {
 	static t_env	e;
 
 	e.cast_sign = 1;
+	e.cur_fd = STDO;
 	e.flags.opt.fill_prec = '0';
 	e.output_size = 0;
 	e.flags.opt.star = 0;

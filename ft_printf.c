@@ -6,7 +6,7 @@
 /*   By: narajaon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/13 16:33:49 by narajaon          #+#    #+#             */
-/*   Updated: 2017/09/23 13:28:37 by narajaon         ###   ########.fr       */
+/*   Updated: 2017/09/23 13:36:04 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int		ft_printf(const char *str, ...)
 	static t_env	e;
 
 	e.cast_sign = 1;
-	e.cur_fd = STDO;
+	e.cur_fd = 1;
 	e.flags.opt.fill_prec = '0';
 	e.output_size = 0;
 	e.flags.opt.star = 0;

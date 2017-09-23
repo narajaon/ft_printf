@@ -6,7 +6,7 @@
 /*   By: narajaon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/13 16:33:44 by narajaon          #+#    #+#             */
-/*   Updated: 2017/09/23 13:20:59 by narajaon         ###   ########.fr       */
+/*   Updated: 2017/09/23 13:35:51 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,6 @@
 # define LL 4
 # define J 5
 # define HH 6
-
-# define STDI 0
-# define STDO 1
-# define STDE 2
 
 typedef union					u_cast
 {

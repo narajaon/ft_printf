@@ -6,11 +6,11 @@
 /*   By: narajaon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 08:41:53 by narajaon          #+#    #+#             */
-/*   Updated: 2017/04/12 08:45:28 by narajaon         ###   ########.fr       */
+/*   Updated: 2017/08/22 16:33:21 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libftprintf.h"
 
 int		ft_isprint(int c)
 {

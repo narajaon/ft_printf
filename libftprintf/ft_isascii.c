@@ -6,11 +6,11 @@
 /*   By: narajaon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 08:32:48 by narajaon          #+#    #+#             */
-/*   Updated: 2017/04/12 09:06:52 by narajaon         ###   ########.fr       */
+/*   Updated: 2017/08/22 16:32:48 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libftprintf.h"
 
 int		ft_isascii(int c)
 {

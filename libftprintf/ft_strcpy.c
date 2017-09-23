@@ -6,11 +6,11 @@
 /*   By: narajaon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 13:49:10 by narajaon          #+#    #+#             */
-/*   Updated: 2017/07/24 14:42:08 by narajaon         ###   ########.fr       */
+/*   Updated: 2017/08/22 16:34:31 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libftprintf.h"
 
 char	*ft_strcpy(char *dest, const char *src)
 {

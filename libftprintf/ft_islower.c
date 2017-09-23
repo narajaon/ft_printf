@@ -6,11 +6,11 @@
 /*   By: narajaon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 08:15:55 by narajaon          #+#    #+#             */
-/*   Updated: 2017/04/12 08:19:35 by narajaon         ###   ########.fr       */
+/*   Updated: 2017/08/22 16:33:10 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libftprintf.h"
 
 int		ft_islower(int c)
 {

@@ -6,11 +6,11 @@
 /*   By: narajaon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/12 13:15:36 by narajaon          #+#    #+#             */
-/*   Updated: 2017/08/12 13:44:12 by narajaon         ###   ########.fr       */
+/*   Updated: 2017/08/22 16:35:09 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libftprintf.h"
 
 static int		base_len(unsigned long long n)
 {

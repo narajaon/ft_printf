@@ -6,11 +6,11 @@
 /*   By: narajaon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 09:31:02 by narajaon          #+#    #+#             */
-/*   Updated: 2017/08/12 18:56:35 by narajaon         ###   ########.fr       */
+/*   Updated: 2017/08/22 16:32:30 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libftprintf.h"
 
 static void		ft_swap(char *a, char *b)
 {

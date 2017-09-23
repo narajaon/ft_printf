@@ -6,11 +6,11 @@
 /*   By: narajaon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 15:27:11 by narajaon          #+#    #+#             */
-/*   Updated: 2017/04/12 08:20:25 by narajaon         ###   ########.fr       */
+/*   Updated: 2017/08/22 16:32:43 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libftprintf.h"
 
 int		ft_isalpha(int c)
 {

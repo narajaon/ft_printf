@@ -6,7 +6,7 @@
 /*   By: narajaon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/13 16:33:44 by narajaon          #+#    #+#             */
-/*   Updated: 2017/08/19 12:33:33 by narajaon         ###   ########.fr       */
+/*   Updated: 2017/08/22 16:31:40 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FT_PRINTF_H
 
 # define BUFF_SIZE 2048
-# include "libftprintf/libft.h"
+# include "libftprintf/libftprintf.h"
 # include <inttypes.h>
 # include <stdarg.h>
 # include <limits.h>

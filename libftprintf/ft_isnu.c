@@ -6,11 +6,11 @@
 /*   By: narajaon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/20 13:56:05 by narajaon          #+#    #+#             */
-/*   Updated: 2017/04/20 13:56:54 by narajaon         ###   ########.fr       */
+/*   Updated: 2017/08/22 16:33:15 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libftprintf.h"
 
 int		ft_isnu(int n, int to_find)
 {

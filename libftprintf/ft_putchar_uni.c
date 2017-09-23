@@ -6,11 +6,11 @@
 /*   By: narajaon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/12 18:54:34 by narajaon          #+#    #+#             */
-/*   Updated: 2017/08/15 12:56:09 by narajaon         ###   ########.fr       */
+/*   Updated: 2017/08/22 16:34:15 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libftprintf.h"
 
 static int		uni_to_str(unsigned char *uni, char *str, int uni_id)
 {

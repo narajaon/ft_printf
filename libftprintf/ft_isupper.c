@@ -6,9 +6,11 @@
 /*   By: narajaon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/12 08:51:09 by narajaon          #+#    #+#             */
-/*   Updated: 2017/04/14 11:20:57 by narajaon         ###   ########.fr       */
+/*   Updated: 2017/08/22 16:33:43 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libftprintf.h"
 
 int		ft_isupper(int c)
 {

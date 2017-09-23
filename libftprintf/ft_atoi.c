@@ -6,11 +6,11 @@
 /*   By: narajaon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 15:48:39 by narajaon          #+#    #+#             */
-/*   Updated: 2017/05/20 14:34:13 by narajaon         ###   ########.fr       */
+/*   Updated: 2017/08/22 16:32:11 by narajaon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libftprintf.h"
 
 static int		check_space(const char *str)
 {

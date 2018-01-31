@@ -1,78 +1,71 @@
-NAME = libftprintf.a
-HEAD = ft_printf.h
-LIBDIR = libft
-SRC =\
-	conv_char.c\
-	conv_fun.c\
-	conv_int.c\
-	conv_str.c\
-	conv_uint.c\
-	conv_unit2.c\
-	ft_printf.c\
-	get_cast.c\
-	get_opt.c\
-	get_values.c\
-	opt_fun.c\
-	opt_min.c\
-	opt_width_prec_digit.c\
-	opt_width_prec_str.c\
-	print_out.c\
-	libftprintf/ft_abs.c\
-	libftprintf/ft_atoi.c\
-	libftprintf/ft_atoi_base.c\
-	libftprintf/ft_bzero.c\
-	libftprintf/ft_cap_itoa_base.c\
-	libftprintf/ft_isalnum.c\
-	libftprintf/ft_isalpha.c\
-	libftprintf/ft_isascii.c\
-	libftprintf/ft_isc.c\
-	libftprintf/ft_isdigit.c\
-	libftprintf/ft_iseven.c\
-	libftprintf/ft_islower.c\
-	libftprintf/ft_isnu.c\
-	libftprintf/ft_isprint.c\
-	libftprintf/ft_isspace.c\
-	libftprintf/ft_isupper.c\
-	libftprintf/ft_itoa_base.c\
-	libftprintf/ft_itoa_str.c\
-	libftprintf/ft_lltoa_str.c\
-	libftprintf/ft_ltoa_base.c\
-	libftprintf/ft_ltoa_str.c\
-	libftprintf/ft_putchar_uni.c\
-	libftprintf/ft_putstr_uni.c\
-	libftprintf/ft_strcmp.c\
-	libftprintf/ft_strcpy.c\
-	libftprintf/ft_strcpy_ret.c\
-	libftprintf/ft_strlen.c\
-	libftprintf/ft_strncmp.c\
-	libftprintf/ft_strncpy.c\
-	libftprintf/ft_strncpy_ret.c\
-	libftprintf/ft_uitoa_str.c\
-	libftprintf/ft_ultoa.c\
-	libftprintf/ft_ultoa_base.c\
-	libftprintf/nbr_size.c
-CC = gcc
-FLAG = -Wall -Wextra -Werror -c -O2
-OBJ = *.o
+NAME:=libftprintf.a
+
+GREEN:="\033[32m"
+ORANGE:="\033[33m"
+RED:="\033[31m"
+CLEAR:="\033[0m"
+
+CC:=gcc
+CFLAGS:=-Wall -Wextra -Werror
+CFLAGS+=-g3
+
+MKDIR:=mkdir -p
+RANLIB:=ranlib
+
+OBJ_D:=obj
+INC_D:=inc
+LIB_D:=lib
+
+INCLUDES = 	-I inc \
+			-I ../libft/inc 
+
+VPATH:=src:inc
+
+HEADER:=libft.h
+
+ITEM:=\
+	conv_char.o \
+	conv_fun.o \
+	conv_int.o \
+	conv_str.o \
+	conv_uint.o \
+	conv_unit2.o \
+	get_cast.o \
+	get_opt.o \
+	get_values.o \
+	nbr_size.o \
+	opt_fun.o \
+	opt_min.o \
+	opt_width_prec_digit.o \
+	opt_width_prec_str.o \
+	print_out.o \
+	ft_printf.o 
+
+OBJ:=$(addprefix ./obj/, $(ITEM))
 
 all: $(NAME)
 
-$(NAME): $(SRC) $(HEAD)
-	@$(CC) $(FLAG) $(SRC)
-	@ar rc $(NAME) $(OBJ)
+$(NAME): $(OBJ)
+	@$(AR) rc $(NAME) $(OBJ)
+	@$(RANLIB) $(NAME)
+	@echo ${GREEN}$(NAME) built${CLEAR}
 
+${OBJ_D}/%.o: %.c 
+	@$(MKDIR) $(OBJ_D)
+	@$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDES)
 clean:
-	@rm -f $(OBJ)
+	@echo ${ORANGE}Cleaning $(NAME)${CLEAR}
+	@$(RM) -r $(OBJ_D)
 
 fclean: clean
-	@rm -f $(NAME)
-	@rm -f $(OBJ)
+	@echo ${RED}Full cleaning $(NAME)${CLEAR}
+	@$(RM) $(NAME)
 
 re: fclean all
 
-.PHONY: clean fclean re
-
-git: clean
+git :
 	@git add .
 	@git commit -m "${MSG}"
+
+gitp : fclean git
 	git push

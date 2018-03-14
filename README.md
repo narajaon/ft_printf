@@ -11,5 +11,5 @@ Then you will need to include the header of the library `inc/ft_printf.h` and th
 
 ## Usage
 
-Just use `ft_printf` as if you were using the original one and it should word exactly as intended 😉
+Just use `ft_printf` as if you were using the original one and it should word exactly as intended 😉  <br>
 As a side note, you can also use `ft_dprintf` if you want to write to a custom file descriptor.

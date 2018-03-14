@@ -7,7 +7,7 @@ Although the original one has more features (floating numbers, color syntax) min
 
 Start by compiling the library using the `Make` command
 
-Then you will need to include the header of the library `inc/ft_printf.h' and then include `libftprintf.a` when you compile your program.
+Then you will need to include the header of the library `inc/ft_printf.h` and then include `libftprintf.a` when you compile your program.
 
 ## Usage
 
